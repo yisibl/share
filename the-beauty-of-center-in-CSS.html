@@ -1,0 +1,342 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+
+        <title>CSS 居中之美</title>
+
+        <meta name="author" content="yisi">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-title" content="CSS居中之美">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        
+        <meta name ="viewport" content ="initial-scale=1, maximum-scale=3, minimum-scale=1, minimal-ui">
+
+        <link rel="stylesheet" href="css/reveal.min.css">
+        <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+        <!-- For syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+        <script>
+            document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <style>
+
+            .summary .line{
+                overflow: hidden;
+                white-space: nowrap;
+            }
+            .summary .line a {
+                display: table-cell;
+                vertical-align: middle;
+                width: 180px;
+                text-align: center;
+            }
+            .summary .content{
+                display: table-cell;
+                vertical-align: middle;
+                padding-left: 20px;
+                text-align: left;
+                overflow: hidden;
+                *zoom:1;
+            }
+            .powered {
+                position: fixed;
+                left: 20px;
+                bottom: 20px;
+                color: #555;
+            }
+
+            .powered p {
+                margin: 6px auto;
+            }
+
+            .powered a {
+                color: #555;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+                <section data-background-transition="slide" data-background="img/banner.jpg" >
+                    <h1>CSS 居中之美</h1>
+                    <p>
+                        <a href="http://www.iyunlu.com/view" traget="blank">一丝</a>
+                        <br>
+                        2013-12-28 于南京
+                    </p>
+                </section>
+
+
+                <section>
+                    <h2>巴黎戴高乐广场</h2>
+                    <p>
+                        <img src="img/1947.jpg" alt="">
+                    </p>
+                </section>
+
+                <section>
+                    <h2>关于我</h2>
+                    <div class="summary">
+                    
+                    <div class="line">
+                        <a href=""><img src="img/av.jpg" alt=""></a>   
+                        <div class="content">
+                            <h3 class="user-name">一丝：</h3>
+                            <p>阿里巴巴前端工程师</p>
+                        </div>
+                    </div>
+
+                <div class="line"> 
+                      <a href="" ><img src="http://tp1.sinaimg.cn/3244329632/180/40023910983/0" alt=""></a>                      
+                        <div class="content">
+                            <p>「前端快爆」作者</p>
+                        </div>
+                    </div>
+
+                    <ul>
+                        <li>博客：<a href="http://www.iyunlu.com/view">http://www.iyunlu.com/view</a></li>
+                        <li>微博：<a href="http://t.qq.com/yisibl">http://t.qq.com/yisibl</a></li>
+                    </ul>
+                </div>
+                </section>
+
+                <section>
+                    <h2>你想到了什么？</h2>
+                    <h3>margin: auto?</h3>
+                </section>
+
+                <section>
+                    <h2>常见居中方法</h2>
+                    <h3>水平居中</h3>
+                    <pre><code data-css contenteditable>
+.demo{
+    text-align: center; 
+
+    margin: auto; 
+
+    position: absolute; 
+    left: 50%; 
+    margin-left: -?px; 
+}
+                    </code></pre>
+                </section>
+
+                <section>
+                    <h2>常见居中方法</h2>
+                    <h3>垂直居中</h3>
+                    <pre><code data-css contenteditable>
+.demo{
+    height: 30px;
+    line-height: 30px;
+
+    display: table-cell; 
+    vertical-align: middle;
+
+    position: absolute; 
+    top: 50%; 
+    margin-top: -?px;
+}
+                    </code></pre>
+                </section>
+
+
+                <section>
+                    <h2>还有其他方法吗？</h2>
+                    <h3>CSS3？</h3>
+                </section>
+
+                <section>
+                    <h2>CSS3 居中</h2>
+                    <h3><a href="http://www.w3.org/html/ig/zh/css-flex-1/">display: flex</a></h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/iMAdiru/1/edit"></iframe>
+                </section>
+
+                <section>
+                    <h2>CSS 居中未来</h2>
+                    <ul>
+                        <li>水平居中 <a href="http://dev.w3.org/csswg/css-box/#alignment">alignment: center</a>
+<pre><code data-css>
+P {alignment: center;}
+
+</code></pre>
+                        </li>
+                        <li>垂直居中 <a href="http://dev.w3.org/csswg/css-box/#child-align">child-align: middle</a>
+<pre><code data-css>
+P {child-align: middle;}
+
+</code></pre>
+                        </li>
+                        <li><a href="http://dev.w3.org/csswg/css-position/#center">position:center;</a></li>
+                    </ul>
+
+
+                </section>
+
+                <section>
+                    <h2>CSS基础理论</h2>
+                    <h3>盒模型(<a href="http://dev.w3.org/csswg/css-ui/#box-sizing0">box-sizing</a>)</h3>
+                    <ul>
+                        <li>border-box</li>
+                        <li>content-box</li>
+                        <li>pading-box</li>
+                    </ul>
+                    <p>不同盒模型对应的设计思路是什么？</p>
+                </section>
+
+                <section>
+                    <h2>CSS基础理论</h2>
+                    <h3>盒模型(box-sizing)</h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/utizEmA/2/edit"></iframe>
+                </section>
+
+                <section>
+                    <h2>前端基础理论</h2>
+                    <h3>定位体系</h3>
+                    <ol>
+                        <li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren#normal-flow">普通流(Normal flow)</a>
+                            <ul>
+                                <li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren#block-formatting">块级格式化上下文(Block formatting contexts)</a></li>
+                                <li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren#inline-formatting">行内格式化上下文(Inline formatting contexts)</a></li>
+                                <li>position: relative;</li>
+                            </ul>
+                        </li>
+                        <li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren#floats">浮动(Floats)</a></li>
+                        <li><a href="http://www.w3.org/html/ig/zh/wiki/CSS2/visuren#absolute-positioning">绝对定位(Absolute positioning)</a>
+                            <ul>
+                                <li>position: absolute;</li>
+                                <li>position: fixed;</li>
+                            </ul>
+
+                        </li>
+                    </ol>
+                </section>
+
+
+                <section>
+                    <h2>前端基础理念</h2>
+                    <h3>前端的本质工作是「还原设计」</h3>
+                    <p>而CSS是设计意图的最终实现</p>
+                    <ol>
+                        <li>三层分离（内容，表现，行为）</li>
+                        <li><a href="http://en.wikipedia.org/wiki/Graceful_degradation">优雅降级(Graceful Degradation),1994</a></li>
+                        <li><a href="http://www.hesketh.com/thought-leadership/our-publications/inclusive-web-design-future">渐进增强(Progressive Enhancement),2003</a></li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <p>如何更好的还原设计？</p>
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <h3>图文混排</h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/atEGaCun/1/edit"></iframe>
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <h3>未知高度图片绝对居中</h3>
+                    <iframe class="page" id="result" src="http://codepen.io/yisi/embed/avptB?height=584&theme-id=3324&slug-hash=avptB&user=yisi&default-tab=result"></iframe>
+
+                    
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <h3>水平分割线</h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/eyeWILo/3/edit?css,output"></iframe>  
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <h3>绝对定位元素居中</h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/udeqig/22/edit"></iframe>
+                </section>
+
+                <section>
+                    <h2>居中设计实例</h2>
+                    <h3>绝对定位 + transform</h3>
+                    <iframe class="page" id="result" src="http://jsbin.com/INISaYen/1/edit?css,output"></iframe>
+                </section>
+
+               
+
+
+                <section>
+                    <h2>误区</h2>
+                    <ol>
+                        <li>滥用 float 布局</li>
+                        <li>使用空标签闭合浮动</li>
+                        <li>用 &lt;br&gt; 控制垂直间距</li>
+                        <li>用 &amp;nbsp; 控制字间距(两端对齐布局等)</li>
+                        <li>直接在标签上用 style 属性写样式</li>
+                        <li>随意甚至使用拼音给 Class，ID 命名</li>
+                        <li>多 Class 症(滥用 OOCSS)</li>
+                    </ol>
+                </section>
+
+                <section>
+                    <h2>亲~说点啥吧</h2>
+                    <h3>Thank You ^_^ </h3>
+                </section>
+            </div>
+
+        </div>
+
+        <div class="powered">
+            <p>CSS 居中之美</p>
+            <p>Powered by <a href="https://github.com/hakimel/reveal.js/" target="_blank">reveal.js</a></p>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.min.js"></script>
+
+        <script>
+
+            // Full list of configuration options available here:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                center: true,
+
+                theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+                transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+                // Parallax scrolling
+                // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+                // parallaxBackgroundSize: '2100px 900px',
+
+                // Optional libraries used to extend on reveal.js
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+                    { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+                    { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>
