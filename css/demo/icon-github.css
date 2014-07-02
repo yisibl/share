@@ -1,0 +1,111 @@
+@font-face {
+  font-family: "coloriocn";
+  font-style: normal;
+  font-weight: 400;
+/*  src: url("http://stackicons.com/fonts/Stackicons/Stackicons-Social.eot");
+  src: 
+    url("http://stackicons.com/fonts/Stackicons/Stackicons-Social.eot?#iefix") format("embedded-opentype"),
+    url("http://stackicons.com/fonts/Stackicons/Stackicons-Social.woff") format("woff"),
+    url("http://stackicons.com/fonts/Stackicons/Stackicons-Social.ttf") format("truetype"), 
+    url("http://stackicons.com/fonts/Stackicons/Stackicons-Social.svg#coloriocn") format("svg");*/
+src: url("../font/Stackicons-Social.eot");
+src: 
+  url("../font/Stackicons-Social.eot?#iefix") format("embedded-opentype"),
+  url("../font/Stackicons-Social.woff") format("woff"),
+  url("../font/Stackicons-Social.ttf") format("truetype"), 
+  url("../font/Stackicons-Social.svg#coloriocn") format("svg");
+}
+
+#demo-github .iconfont {
+  font-family: "coloriocn";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  display: inline-block;
+  text-align: center;
+  speak: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 350px;
+  line-height: 480px;
+}
+
+.demo {
+    width: 500px;
+    height: 500px;
+    display: inline-block;
+    cursor: pointer;
+      /*background:#fff url(http://wendywangju.github.io/study-2/IOS7_App_Icon_Grid.svg) 50% 0% no-repeat;*/
+  background: url(../../img/iOS7-icon-grid.svg) 50% 50% no-repeat;
+  background-size: cover;
+}
+
+
+.icon-github:after,
+.icon-github:before,
+.icon-github span:after,
+.icon-github span:before{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  
+}
+
+
+.icon-github:before{
+  content: "\e179" "\a";
+  color: #151515;
+  /* -webkit-text-stroke: 3px; */
+}
+
+.icon-github:after{
+  content: "\e176""\a";
+  color: #9CE6FE;
+  color: rgba(131, 224, 254, 0.8);
+  transition: all .5s ease-in-out;
+  
+}
+
+.icon-github span:before{
+  content: "\e174" "\a";
+  color: #F3CAB2;
+  transition: all 1s 1s ease-in-out;
+}
+
+.icon-github span:after{
+  content: "\e175" "\a";
+  color: #B1423A;
+  transition: all .8s ease-in-out;
+}
+
+/* 身体 */
+.active .iconfont:before{
+
+}
+
+/* 脚 */
+.active .iconfont:after{
+  -webkit-transform: rotateX( 60deg ) rotateZ( 1deg  ) translateY( 300px ) scale(.8);
+}
+
+/* 脸 */
+.active .iconfont span:before{
+  -webkit-transform: rotateX( 30deg ) rotateZ( 1deg  ) translateY( 360px ) scale(.9);
+}
+
+/* 眼睛 */
+.active .iconfont span:after{
+  -webkit-transform: rotateZ( 1deg  ) translateY( 100px ) scale(.9);
+}
+
+
+
+
+
+
