@@ -1,0 +1,779 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <title>CSS 后处理器</title>
+  <meta name="author" content="yisi">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="CSS 后处理器">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <link rel="stylesheet" href="css/demo/icon-github.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write('<link rel="stylesheet" href="css/print/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+  </script>
+
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <style>
+  /* 代码字体大小 */
+  .reveal pre {
+    font-size: .9em;
+  }
+  .summary .line {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .summary .line > a {
+    display: table-cell;
+    vertical-align: middle;
+    width: 180px;
+    text-align: center;
+  }
+  .summary .content {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 20px;
+    text-align: left;
+    overflow: hidden;
+    *zoom: 1;
+  }
+  .powered {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    color: #555;
+  }
+  .powered p {
+    margin: 6px auto;
+  }
+  .powered a {
+    color: #555;
+  }
+  .reveal>.backgrounds .slide-background:nth-of-type(1),
+  .reveal>.backgrounds .slide-background:nth-of-type(2) {
+    background-size: cover;
+    /*background-size: contain; */
+    background-position: 50% 10%;
+    background-color: #9cbfe9;
+  }
+  .reveal .author {
+    margin-top: 100px;
+    font-size: 60px;
+  }
+  .reveal .title {
+    color: #fff;
+    font-size: 80px;
+    text-align: right;
+    position: absolute;
+    left: 50%;
+    top: -160px;
+    width: 500px;
+    margin-left: -200px;
+    /*margin-top: 60px;*/
+  }
+  .reveal .title .css {
+    font-size: 110px;
+    display: inline-block;
+    line-height: 1;
+    padding: 0 30px 0 30px;
+    letter-spacing: 5px;
+    position: relative;
+  }
+  .reveal .title strong {
+    font-weight: normal;
+    font-size: 160px;
+    font-family: '楷体', sans-serif;
+    position: relative;
+    padding: 0 5px;
+    display: inline-block;
+    width: 160px;
+    height: 160px;
+    line-height: 160px;
+    background: rgba(255, 255, 255, .3);
+  }
+  .reveal .title strong:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    width: 450px;
+    background: rgba(255, 255, 255, .6);
+  }
+  .reveal .sub-title {
+    display: block;
+    margin-top: 10px;
+  }
+  .fade-box {
+    position: relative;
+    min-height: 500px;
+  }
+
+  .qrcode {
+    width: 500px;
+  }
+  .user .con {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding-right: 20px;
+  }
+  .user .con img {
+    max-height: none;
+    max-width: 100%;
+  }
+  .user .con h3+h3 {
+    border-bottom: 2px solid #000;
+    min-width: 3em;
+    line-height: 1.3;
+  }
+  .phiz {
+    position: absolute;
+    z-index: 909;
+    top: 260px;
+    right: -10px;
+    border-radius: 140px 130px 160px 120px;
+  }
+  .fade-box .fragment {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+}
+  </style>
+  <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="js/socket.io.min.js"></script>
+  <script type="text/javascript" src="js/qrcode.min.js"></script>
+  <script type="text/javascript">
+  var env;
+
+  $.ajax({
+    // url: 'http://localhost:3000/getEnv',
+    // dataType: 'jsonp',
+    // success: function(data) {
+    //   env = data;
+
+    url: 'http://localhost:3000/env',
+    dataType: 'jsonp',
+    success: function(data) {
+      env = data;
+
+      // draw qrcode
+      var qrcodedraw = new QRCodeLib.QRCodeDraw();
+      var request = ['http://', env.ip, ':', env.port, '/mobile/control'].join('');
+      qrcodedraw.draw(document.querySelector('.qrcode'), request, function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+      });
+    }
+  })
+
+
+  var socket = io.connect('http://localhost:3000');
+
+  socket.on('animate', function() {
+    if ($('#qrcode').css('display') !== 'none') {
+      $('#demo-github').toggleClass('active');
+    }
+  })
+
+  var socket = io.connect('http://localhost:3000');
+  socket.emit('ppt');
+
+  socket.on('ppt left', function() {
+    Reveal.left();
+  });
+
+  socket.on('ppt right', function() {
+    Reveal.right();
+  });
+  </script>
+</head>
+
+<body>
+
+  <div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <!-- 二维码 -->
+      <section>
+        <canvas class="qrcode"></canvas>
+      </section>
+
+      <section data-background-transition="slide" data-background="img/banner-bg.png">
+  <!--       <h1 class="title"><span class="css">CSS</span><strong>后</strong>
+          <span class="sub-title">处理器</span></h1>
+        <p class="author fragment">
+          <a href="http://www.iyunlu.com/view" traget="blank">一丝</a>
+          <br>2014-11-28 于杭州</p> -->
+      </section>
+
+      <!-- 关于 begin -->
+      <section data-previous-indexv="2">
+        <h2>关于我</h2>
+        <div class="summary">
+
+          <div class="line">
+            <a href="http://weibo.com/jieorlin/" target="_blank">
+              <img src="img/av.jpg" alt="">
+            </a>
+            <div class="content">
+              <h3 class="user-name">我是一丝</h3>
+              <p>阿里妈妈 前端</p>
+            </div>
+          </div>
+
+          <div class="line">
+            <a href="http://weibo.com/fekb" target="_blank">
+              <img src="http://tp1.sinaimg.cn/3244329632/180/40023910983/0" alt="">
+            </a>
+            <div class="content">
+              <ul>
+                <li>「<a href="http://weibo.com/fekb" target="_blank">前端快爆</a>」编辑</li>
+                <li><a href="http://thx.github.io/cube/" target="_blank">Cube.css</a>，<a href="http://thx.github.io/cube/doc/type/" target="_blank">Type.css</a>作者</li>
+              </ul>
+            </div>
+          </div>
+
+          <ul class="">
+            <li>
+              博客：
+              <a href="https://github.com/yisibl/blog">https://github.com/yisibl/blog</a>
+            </li>
+            <li>
+              微博：
+              <a href="http://weibo.com/jieorlin">@一丝yisi</a>
+            </li>
+          </ul>
+        </div>
+      </section>
+      <!-- 关于 end -->
+
+      <section>
+        <h2>刀耕火种</h2>
+        <p><img src="img/original.png" alt=""></p>
+      </section>
+
+      <section>
+        <h2>手写前缀</h2>
+<pre><code>
+.foo {
+  transition: width .3s;
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -ms-transition: width .3s;
+  -o-transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>问题?</h2>
+<pre><code>
+.foo {
+  transition: width .3s; /*标准属性应该放到最后*/
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -ms-transition: width .3s; /*IE 不用前缀*/
+  -o-transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>大爆炸</h2>
+        <p>CSS 预处理器兴起</p>
+        <ul>
+          <li><a href="http://sass-lang.com/" target="_blank">Sass(Ruby)</a>
+            <strong>2006.10.5</strong>
+            <p>始于颠覆→.sass</p>
+            <p>归于平凡→.scss</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>大爆炸</h2>
+        <p>CSS 预处理器兴起</p>
+        <ul>
+          <li><a href="http://lesscss.org/about/" target="_blank">Less(Ruby→JS)</a> 
+            <p><strong>2009</strong> → Alexis Sellier</p>
+            <p><strong>2012.5</strong> → 作者不干了</p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>大爆炸</h2>
+        <p>CSS 预处理器兴起</p>
+        <ul>
+          <li><a href="http://learnboost.github.io/stylus/" target="_blank">Stylus(JS)</a>
+            <br>
+            <strong>2011.2.1</strong>
+            <p class="fragment"><img src="img/tj.jpg" alt="TJ头像"></p>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>国内 CSS 预处理器</h3>
+        <h2>实践者</h2>
+        <ul>
+          <li>Less: <a href="https://github.com/ecomfe/est" target="_blank">顾轶灵（est）</a>，<a href="http://lesscss.net/" target="_blank">Toobug（less中文社区）</a>，飞长等</li>
+          <li>Sass: <a href="http://www.cn-sass.com/" target="_blank">大漠(Sass 中国)</a>，<a href="https://github.com/jsw0528/base.sass" target="_blank">wo_is神仙（base.sass）</a> 等</li>
+          <li>Stylus: Hax 等</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>预处理器特性</h2>
+      </section>
+
+      <section>
+        <h2>1. 变量</h2>
+<pre><code>
+//Less
+@linkcolor: #61c;
+
+//Scss
+$linkcolor: #61c;
+
+//Stylus
+$linkcolor = #61c;
+</code></pre>        
+      </section>
+
+      <section>
+        <h2>2. mixin</h2>
+        <h3>Less</h3>
+<pre><code>
+//Less
+.transition(value) {
+  -webkit-transition: value;
+     -moz-transition: value;
+       -o-transition: value;
+          transition: value;
+}
+.foo {
+  .transition(width .3s);
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>2. mixin</h2>
+        <h3>Sass</h3>
+<pre><code>
+//Scss
+@mixin transition($value) {
+  -webkit-transition: $value;
+     -moz-transition: $value;
+       -o-transition: $value;
+          transition: $value;
+}
+.foo {
+  @include transition(width .3s);
+}
+</code></pre>        
+      </section>
+<section>
+  <h2>2. mixin</h2>
+  <h3></h3>
+<pre>Stylus<code>
+//Stylus
+transition(value) {
+  -webkit-transition: value;
+     -moz-transition: value;
+       -o-transition: value;
+          transition: value;
+}
+.foo {
+  transition(width .3s);
+}
+</code></pre>
+</section>
+<section>
+  <h2>3. 嵌套</h2>
+  <p>三者语法相同</p>
+<pre><code>
+a {
+  color: #333;
+    &:hover{
+      text-decoration: underline;
+  }
+}
+//输出：
+a {
+  color: #333;
+}
+a:hover{
+  text-decoration: underline;
+}
+</code></pre>  
+</section>
+<section>
+  <h2>还有？</h2>
+  <ul>
+    <li>继承（inherit）</li>
+    <li>引入（import）</li>
+    <li>运算符（Operations）</li>
+    <li>条件语句</li>
+    <li>……</li>
+  </ul>
+</section>
+
+<section>
+  <h2>你真的需要这些吗？</h2>
+  <img src="img/soso.png" alt="摊手表情，右上角标注文字「伐开心」">
+</section>
+
+<section>
+  <img src="img/IMG_0361.png" alt="化繁为简：一堆复杂的线条转换成一个简单的微笑表情">
+</section>
+
+<section>
+  <h2>后处理器怎么做？</h2>
+<pre class="fragment"><code>
+.foo {
+  transition: width .3s;
+}
+</code></pre>
+<div class="fragment">
+<p><a href="http://jsbin.com/gufoko/quiet" target="_blank">↓自动按需生成前缀</a></p>
+<pre><code>
+.foo {
+  -webkit-transition: width .3s;
+     -moz-transition: width .3s;
+       -o-transition: width .3s;
+          transition: width .3s;
+}
+</code></pre>
+
+<img class="phiz fragment" src="img/IMG_0061.PNG" width="300" alt="微笑表情">
+</div>
+</section>
+
+
+<section>
+  <h2>后处理器怎么做？</h2>
+  <div class="fade-box">
+<pre class="fragment" style="font-size: .5em;"><code>
+/* 变量 */
+:root {
+  --fontSize: 14px;
+  --mainColor: #333;
+  --highlightColor: hwb(190, 35%, 20%);
+}
+/* 自定义 media queries */
+@custom-media --viewport-medium (min-width: 760px) and (max-width: 990px);
+/* 变量引用 以及使用 calc() 运算*/
+body {
+  color: var(--mainColor);
+  font-size: var(--fontSize);
+  line-height: calc(var(--fontSize) * 1.5);
+  padding: calc((var(--fontSize) / 2) + 1px);
+}
+/* 颜色处理函数 */
+a {
+  color: color(var(--highlightColor) blackness(+20%));
+  background: color(red a(80%))
+}
+/* 使用自定义 media queries */
+@media (--viewport-medium) {
+  .foo {
+    display: flex;
+    font-size: calc(var(--fontSize) * 2 + 6px);
+  }
+}
+</code></pre>
+<pre class="fragment" style="font-size: .6em;"><code>
+/* 变量 */
+/* 自定义 media queries */
+/* 变量引用 以及使用 calc() 运算*/
+body {
+  color: #333;
+  font-size: 14px;
+  line-height: 21px;
+  padding: 8px;
+}
+/* 颜色处理函数 */
+a {
+  color: rgb(89, 142, 153);
+  background: rgba(255, 0, 0, 0.8)
+}
+/* 使用自定义 media queries */
+@media (min-width: 760px) and (max-width: 990px) {
+  .foo {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    font-size: 34px;
+  }
+}  
+</code></pre>
+</div>
+</section>
+
+<section>
+  <h2><a href="http://cssnext.github.io/cssnext-playground/" target="_blank">在线演示</a></h2>
+</section>
+
+<section>
+  <h2>预处理器的痛点</h2>
+  <ul class="fragment">
+    <li>多层嵌套，代码维护的灾难
+      <p><img src="img/IMG_0362.png" alt="手绘的多层嵌套的代码"></p>
+    </li>
+  </ul>
+</section>
+
+<section>
+  <h2>预处理器的痛点</h2>
+  <ul>
+    <li>无法修正开发者错误或不规范的写法</li>
+  </ul>
+<div class="fade-box">
+<div class="fragment">知乎：<a href="http://www.zhihu.com/question/20979831" target="_blank">《有哪些经常被误用的 HTML、JavaScript、CSS 的元素、方法和属性？》</a></div>
+<pre class="fragment"><code>
+.foo {
+  position: absolute;
+  display: block;
+
+  float: left;
+  display: block;
+}
+</code></pre>
+</div>   
+</section>
+
+<section>
+  <h2>预处理器的痛点</h2>
+  <ul>
+  <li><a href="http://www.otsukare.info/2014/11/26/howto-fix-flexbox-css" target="_blank">hao123.com CSS 只写 -webkit- 前缀的问题</a></li>
+  </ul>
+  <img class="fragment" data-fragment-index="1" src="http://ww2.sinaimg.cn/mw1024/534b48acjw1emoe0y73gij20iw0kpwhi.jpg" alt="hao123在不同的移动端截图">
+<pre class="fragment" data-fragment-index="2"><code>
+.foo {
+  display: -webkit-box;
+}
+</code></pre>  
+</section>
+
+
+<section>
+  <h2><small>什么是CSS后处理器</small></h2>
+  <img src="img/flow.png" alt="一条河流从左上角流至右下角：代表CSS的工作流程。上游有个房子，代表预处理器。下游也有个房子，代表后处理器">
+</section>
+
+<section>
+  <h2>典型的后处理工具</h2>
+  <ul>
+    <li>CSS 压缩：<a href="https://github.com/jakubpawlowicz/clean-css" target="_blank">clean-css</a></li>
+    <li>自动加前缀：<a href="https://github.com/postcss/autoprefixer" target="_blank">Autoprefixer</a>（基于 PostCSS）</li>
+    <li><a href="https://github.com/reworkcss/rework" target="_blank">Rework</a>，取代 Stylus</li>
+    <li><a href="https://github.com/postcss/postcss" target="_blank">PostCSS</a>
+      <ol class="fragment">
+        <li>更易扩展的 API</li>
+        <li>Source Map</li>
+        <li>保留空白符</li>
+      </ol>  
+    </li>
+  </ul>
+</section>
+
+<section>
+  <div>解析流程</div>
+  <h3>后处理器</h3>
+  <img src="img/postcss.png" alt="后处理器解析流程">
+</section>
+
+<section>
+  <div>解析流程</div>
+  <h3>预处理器</h3>
+  <img src="img/precss.png" alt="预处理器解析流程">
+</section>
+
+
+<section>
+  <h2>还有哪些问题？</h2>
+  <h3>CSSGrace 来搞定!</h3>
+</section>
+
+<section>
+  <h2>CSSGrace 特性演示</h2>
+  <img src="http://gtms03.alicdn.com/tps/i3/TB1OXJaGpXXXXbbXFXXZ.oU0pXX-848-504.gif" alt="" width="848" height="504">
+</section>
+
+<section>
+  <img src="img/grace.png" alt="简单优雅，有木有">
+</section>
+
+<section>
+  <h2>CSSGrace 介绍</h2>
+  <ul>
+    <li>无需学习</li>
+    <li>无后顾之忧</li>
+    <li>面向未来</li>
+  </ul>
+</section>
+
+
+
+<section>
+  <h2>CSS 工作流</h2>
+  <h3>Grunt</h3>
+<pre><code>
+module.exports = function(grunt) {
+  // 项目配置
+  grunt.initConfig({
+    pkg: grunt.file.readJSON('package.json'),
+    postcss: {
+      options: {
+        processors: [
+          require('cssgrace').postcss
+        ]
+      },
+      dist: {
+        src: ['src/*.css'],
+        dest: 'build/grunt.css'
+      }
+    }
+  });
+  // 加载任务插件
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-postcss');
+  // 默认任务
+  grunt.registerTask('default', ['postcss']);
+}
+</code></pre>  
+</section>
+
+<section>
+  <h2>CSS 工作流</h2>
+  <h3>Gulp</h3>
+<pre><code>
+var gulp = require('gulp');
+var rename = require('gulp-rename');
+var postcss = require('gulp-postcss');
+var cssgrace = require('cssgrace');
+
+gulp.task('default', function () {
+    var processors = [
+        cssgrace
+    ];
+    return gulp.src('src/*.css')
+        .pipe(postcss(processors))
+        .pipe(rename('gulp.css'))
+        .pipe(gulp.dest('build'))
+});
+gulp.watch('src/*.css', ['default']);
+</code></pre>  
+</section>
+
+
+<section>
+  <h2>预处理器和后处理器的关系</h2>
+  <img src="img/IMG_2447.png" alt="关系" width="720" height="719">
+</section>
+
+      <section data-background-transition="slide" data-background="img/en.jpg">
+        <h2 style="color: #fff; margin-top: 350px; margin-left: 1.5em;">就酱~(≧▽≦)/</h2>
+      </section>
+
+      <section>
+        
+      </section>
+
+    </div>
+
+  </div>
+
+  <div class="powered">
+    <p>《CSS 后处理器》</p>
+  </div>
+  <div class="mux-logo">
+    <img src="http://gtms01.alicdn.com/tps/i1/T1PY5OFBXdXXcMmhDl-216-94.png" alt="">
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.min.js"></script>
+
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    mouseWheel: false,
+    keyboard: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Parallax scrolling
+    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    // parallaxBackgroundSize: '2100px 900px',
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [{
+      src: 'lib/js/classList.js',
+      condition: function() {
+        return !document.body.classList;
+      }
+    }, {
+      src: 'plugin/markdown/marked.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/markdown/markdown.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/highlight/highlight.js',
+      async: true,
+      callback: function() {
+        hljs.initHighlightingOnLoad();
+      }
+    }, {
+      src: 'plugin/zoom-js/zoom.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }, {
+      src: 'plugin/notes/notes.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }]
+  });
+
+  $('canvas').on('click', function() {
+    socket.emit('clear');
+  });
+  </script>
+</body>
+
+</html>

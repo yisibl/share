@@ -49,7 +49,7 @@ font-family: 'helvetica neue',tahoma,'hiragino sans gb',stheiti,'wenquanyi micro
   text-shadow: none; }
 
 .reveal h1 {
-  text-shadow: 2px 2px 0px rgba(105, 135, 167, 0.8); }
+  text-shadow: -2px 2px 0 rgba(0, 0, 0, .5); }
 
 .reveal .slides>section, .reveal .slides>section>section {
     padding: 0 0 20px;
