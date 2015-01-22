@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <title>CSS 工作流</title>
+  <meta name="author" content="yisi">
+
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+  <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/sky.css" id="theme">
+
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+
+  <link rel="stylesheet" href="css/demo/icon-github.css">
+
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write('<link rel="stylesheet" href="css/print/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+  </script>
+
+
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+
+  <style>
+  /* 代码字体大小 */
+  
+  .reveal pre {
+    font-size: .9em;
+  }
+  .reveal li {
+    margin-top: 6px;
+  }
+  .summary .line {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .summary .line > a {
+    display: table-cell;
+    vertical-align: middle;
+    width: 180px;
+    text-align: center;
+  }
+  .summary .content {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 20px;
+    text-align: left;
+    overflow: hidden;
+    *zoom: 1;
+  }
+  .powered {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    color: #555;
+  }
+  .powered p {
+    margin: 6px auto;
+  }
+  .powered a {
+    color: #555;
+  }
+  .reveal>.backgrounds .slide-background:nth-of-type(1),
+  .reveal>.backgrounds .slide-background:nth-of-type(2) {
+    background-size: cover;
+    /*background-size: contain; */
+    
+    background-position: 50% 10%;
+    background-color: #9cbfe9;
+  }
+  .reveal .author {
+    margin-top: 200px;
+    font-size: 60px;
+  }
+  .reveal .title {
+    color: #5995D0;
+    font-size: 80px;
+    text-align: right;
+    position: absolute;
+    left: 50%;
+    top: -60px;
+    width: 800px;
+    margin-left: -400px;
+    /*margin-top: 60px;*/
+  }
+  .reveal .title .css {
+    font-size: 110px;
+    display: inline-block;
+    line-height: 1;
+    padding: 0 30px 0 30px;
+    letter-spacing: 5px;
+    position: relative;
+  }
+  .reveal .title strong {
+    font-weight: normal;
+    font-size: 130px;
+    position: relative;
+    padding: 0 30px;
+    width: 390px;
+    display: inline-block;
+    vertical-align: bottom;
+    text-align: center;
+    height: 160px;
+    line-height: 160px;
+    background: rgba(255, 255, 255, .3);
+  }
+  .reveal .title strong:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    width: 450px;
+    background: rgba(255, 255, 255, .6);
+  }
+  .reveal .sub-title {
+    display: block;
+    margin-top: 10px;
+    font-size: 78px;
+  }
+  .fade-box {
+    position: relative;
+    min-height: 500px;
+  }
+  .qrcode {
+    width: 500px;
+  }
+  .user .con {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding-right: 20px;
+  }
+  .user .con img {
+    max-height: none;
+    max-width: 100%;
+  }
+  .user .con h3+h3 {
+    border-bottom: 2px solid #000;
+    min-width: 3em;
+    line-height: 1.3;
+  }
+  .phiz {
+    position: absolute;
+    z-index: 909;
+    top: 260px;
+    right: -10px;
+    border-radius: 140px 130px 160px 120px;
+  }
+  .fade-box .fragment {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+  }
+  </style>
+  <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="js/socket.io.min.js"></script>
+  <script type="text/javascript" src="js/qrcode.min.js"></script>
+  <script type="text/javascript">
+  var env;
+
+  $.ajax({
+    // url: 'http://localhost:3000/getEnv',
+    // dataType: 'jsonp',
+    // success: function(data) {
+    //   env = data;
+
+    url: 'http://localhost:3000/env',
+    dataType: 'jsonp',
+    success: function(data) {
+      env = data;
+
+      // draw qrcode
+      var qrcodedraw = new QRCodeLib.QRCodeDraw();
+      var request = ['http://', env.ip, ':', env.port, '/mobile/control'].join('');
+      qrcodedraw.draw(document.querySelector('.qrcode'), request, function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+      });
+    }
+  })
+
+
+  var socket = io.connect('http://localhost:3000');
+
+  socket.on('animate', function() {
+    if ($('#qrcode').css('display') !== 'none') {
+      $('#demo-github').toggleClass('active');
+    }
+  })
+
+  var socket = io.connect('http://localhost:3000');
+  socket.emit('ppt');
+
+  socket.on('ppt left', function() {
+    Reveal.left();
+  });
+
+  socket.on('ppt right', function() {
+    Reveal.right();
+  });
+  </script>
+</head>
+
+<body>
+
+  <div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <!-- 二维码 -->
+      <section>
+        <canvas class="qrcode"></canvas>
+      </section>
+
+      <section data-background-transition="slide" data-background="img/workflow-management.png">
+        <!-- <h1 class="title"><span class="css">CSS</span><strong>工作流</strong>
+          <span class="sub-title">WORKFLOW</span></h1> -->
+        <p class="author fragment">
+          <br>2015-1-10 于北京</p>
+        </p>
+      </section>
+
+      <section data-background-transition="slide" data-background="#555">
+        <h1 class="title"><span class="css">武大头的</span><strong>CSS</strong>
+          <span class="sub-title">传奇</span></h1>
+        <img src="img/wudatou.jpg" alt="武大头">
+      </section>
+
+
+
+      <section>
+        <h2>武大头是谁？</h2>
+        <div>心机婊</div>
+        <img src="img/ji.png" height="" width="600" alt="">
+
+      </section>
+
+      <section>
+        <video class="" style="" controls src="img/datou.mp4" data-autoplay></video>
+      </section>
+
+      <section>
+        <h2>故事是这样的</h2>
+        <h3>有一天……</h3>
+        <img src="img/baba.jpg" height="350" width="350" alt="">
+      </section>
+
+      <section>
+        <h2>目录</h2>
+        <ul>
+          <li>第一日：欲善其事，先利其器（书写规范）</li>
+          <li>第二日：兼纳百家，有容乃大（再谈重置）</li>
+          <li>第三日：江湖儿女，名号在外（前缀当先）</li>
+          <li>第四日：左右开弓，谁主沉浮（闭合浮动）</li>
+          <li>第五日：前后并济，可攻可受（前后处理）</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>第一日</h2>
+        <h3>欲善其事，先利其<span style="font-size: 86px; color: #2972B0;">器</span></h3>
+      </section>
+
+      <section>
+        <h2>书写规范</h2>
+        <img src="img/TabsSpacesBoth.png" alt="">
+      </section>
+
+      <section>
+        <h2>书写规范</h2>
+        <h3><a href="https://github.com/yisibl/css-creating#indentation">CSS 创作指南</a></h3>
+        <ul>
+          <li>使用 2 个空格缩进</li>
+          <li>使用 Unix 风格换行符(LF)</li>
+          <li>删除行尾多余的空格</li>
+          <li>文件末尾增加一个空行</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>书写规范……How?</h2>
+        <h3>Sublime Text</h3>
+        <ul>
+          <li class="fragment">新建工程 → xxx.sumlime-project 文件</li>
+          <li class="fragment">问题：只有 Sublime Text 支持</li>
+        </ul>
+        <pre style="font-size: .65em !important;"><code>
+{
+  "folders": [{
+    "path": ".",
+    "folder_exclude_patterns": ["node_modules", "_site"]//排除目录
+  }],
+  "settings": {
+    "tab_size": 4,
+    "translate_tabs_to_spaces": true,//tab 转换为空格
+    "ensure_newline_at_eof_on_save": true,//保存时末尾自动增加一个空行
+    "trim_trailing_white_space_on_save": true//删除行尾多余的空格
+  }
+}
+</code></pre>
+      </section>
+      <section>
+        <h2>书写规范……How?</h2>
+        <h3><a href="http://editorconfig.org/">EditorConfig</a>（推荐）</h3>
+        <pre style="font-size: .7em !important;"><code>
+# css-creating coding style
+root = true
+
+# 为所有文件设置风格
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+# 为 Markdown 文件保留行尾空格
+[*.md]
+trim_trailing_whitespace = false
+</code></pre>
+      </section>
+
+      <section>
+        <h2>书写规范……How?</h2>
+        <h3><a href="http://editorconfig.org/">EditorConfig</a>支持的编辑器</h3>
+        <img src="img/editor.png" height="443" width="532" alt="">
+      </section>
+
+      <section>
+        <h2>第二日</h2>
+        <h3>兼纳百家，有容<span style="font-size: 86px; color: #CB7A1E;">乃</span>大</h3>
+      </section>
+
+      <section>
+        <h2>CSS Reset</h2>
+        <p>统一浏览器默认样式</p>
+      </section>
+
+      <section>
+        <h2>CSS Reset</h2>
+        <pre><code>
+* {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+
+        <ul>
+          <li class="fragment">简单</li>
+          <li class="fragment">副作用大</li>
+          <li class="fragment">效率？</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>CSS Reset</h2>
+        <h3>按需 reset 为 0</h3>
+        <ul>
+          <li class="fragment">html,dt,li,code 默认没有边距</li>
+        </ul>
+        <pre><code>
+html, body, dl, dd, dt,
+ul, ol, li,
+h1, h2, h3, h4, h5, h6, pre, code,
+form, fieldset, legend, input, textarea, optgroup,
+p, blockquote, figure, hr, menu, dir,
+thead, tbody, tfoot, th, td {
+  margin: 0;
+  padding: 0;
+}
+</code></pre>
+
+      </section>
+
+      <!-- normalize.css -->
+      <section>
+        <h2> Normalize.css</h2>
+        <ul>
+          <li>保护有用的浏览器默认样式, 而不是完全去掉它们</li>
+        </ul>
+        <pre><code>
+/**
+ * Remove default margin.
+ */
+
+body {
+  margin: 0;
+}
+</code></pre>
+
+      </section>
+
+      <section>
+        <h2> <a href="https://github.com/necolas/normalize.css/blob/master/normalize.css">Normalize.css</a></h2>
+        <ul>
+          <li>修复浏览器自身的 Bug 并保证夸浏览器的一致性</li>
+          <li>模块化，按需定制</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2> <a href="https://github.com/necolas/normalize.css/blob/master/normalize.css">Neat.css</a></h2>
+        <h3>Reset + Normalize</h3>
+
+      </section>
+
+      <section>
+        <h2> <a href="https://github.com/necolas/normalize.css/blob/master/normalize.css">Neat.css</a></h2>
+        <h3>人性化的细节处理</h3>
+        <ul>
+          <li>textarea 默认只能垂直拖动，防止宽度改变破坏布局。</li>
+          <li>small 元素字号不小于12px，汉字小于 12px 不易阅读。</li>
+          <li>label 元素默认光标设为「手型」，暗示此处可点击。</li>
+        </ul>
+        <pre><code>
+textarea {
+    resize: vertical;
+}
+small {
+    font-size: 85.7%; /* 12/14=0.8571428571 */
+}
+label {
+    cursor: pointer;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2> <a href="https://github.com/necolas/normalize.css/blob/master/normalize.css">Neat.css</a></h2>
+        <h3>移动设备优化</h3>
+        <p>iPhone 横屏时默认会放大文字</p>
+        <pre><code>
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2><a href="http://www.paulirish.com/2012/box-sizing-border-box-ftw/">Reset Box-sizing</a></h2>
+        <h3 class="fragment">问题？<span class="">不能继承</span></h3>
+        <pre><code>
+*, *:before, *:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>Reset Box-sizing</h2>
+        <p>更好的：</p>
+        <pre><code>
+html {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  -webkit-box-sizing: inherit;
+  -moz-box-sizing: inherit;
+  box-sizing: inherit;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>排版</h2>
+        <h3>字体误区</h3>
+        <ul>
+          <li>宋体非宋体，黑体非黑体</li>
+          <li>宋体和黑体都是指一类字体</li>
+          <li>Windows: 中易宋体(SimSun)，Mac: 华文宋体(STSong)</li>
+          <li>Windows: 中易黑体(SimHei)，Mac: 华文黑体(STHeiti)</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>排版</h2>
+        <h3>Font-family 最佳实践</h3>
+        <ul>
+          <li>永远不要只写中文字体</li>
+          <li>西文字体保证在中文字体前面</li>
+          <li>字体顺序遵循 Mac →Linux→ Windows</li>
+          <li>不要 PSD 里什么字体就设定什么 font-family</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>排版</h2>
+        <h3 class="">Font-family 最佳实践（全真派）</h3>
+        <pre class="fragment"><code>
+body {
+  font-family: sans-serif;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h3>Font-family 最佳实践（古墓派）</h3>
+        <img class="" src="img/gugu.gif" height="309" width="300" alt="">
+        <pre class="fragment"><code>
+body { font-family:'helvetica neue', arial,
+                   'hiragino sans gb', stheiti,
+                   'microsoft yahei', 
+                   'wenquanyi micro hei',
+                   sans-serif;
+}
+</code></pre>
+      </section>
+
+
+      <section>
+        <h2>中文排版解决方案</h2>
+        <ul>
+          <li><a href="https://github.com/ethantw/Han">漢字標準格式</a>
+          </li>
+          <li><a href="https://github.com/sofish/typo.css/tree/master">typo.css</a>
+          </li>
+          <li><a href="https://github.com/zmmbreeze/Entry.css">Entry.css</a>
+          </li>
+          <li><a href="http://thx.github.io/cube/demo/type/">Type.css</a>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>第三日</h2>
+        <h3>江湖儿女，<span style="font-size: 86px; color: #2972B0;">名号</span>在外</h3>
+      </section>
+
+
+      <section>
+        <h2>前缀问题</h2>
+      </section>
+
+      <section>
+        <h2>农耕火种</h2>
+        <p><img src="img/original.png" alt="">
+        </p>
+      </section>
+
+      <section>
+        <h2>手写前缀</h2>
+        <h3>问题?</h3>
+        <pre><code>
+.foo {
+  transition: width .3s;
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -ms-transition: width .3s;
+  -o-transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+
+        <pre><code>
+.foo {
+  transition: width .3s; /*标准属性应该放到最后*/
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -ms-transition: width .3s; /*IE 不用前缀*/
+  -o-transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>工业革命</h2>
+        <p><img src="img/gongye.jpg" alt="">
+        </p>
+      </section>
+
+      <section>
+        <h2>Emmet(Zen Coding)</h2>
+        <p><img src="img/emmet.gif" height="315" width="682" alt="">
+        </p>
+      </section>
+
+      <section>
+        <h2>问题?</h2>
+        <h3 class="fragment">成全兼容，恶心自己</h3>
+      </section>
+
+      <section>
+        <h2>CSS 预处理器(mixin)</h2>
+        <pre><code>
+//Scss
+@mixin transition($value) {
+  -webkit-transition: $value;
+     -moz-transition: $value;
+       -o-transition: $value;
+          transition: $value;
+}
+.foo {
+  @include transition(width .3s);
+}
+</code></pre>
+
+      </section>
+
+      <section>
+        <h2>CSS 预处理器(mixin)</h2>
+        <h3>Stylus</h3>
+        <pre><code>
+//Stylus
+transition(value) {
+  -webkit-transition: value;
+     -moz-transition: value;
+       -o-transition: value;
+          transition: value;
+}
+.foo {
+  transition(width .3s);
+  //或者
+  transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>CSS 预处理器(mixin)</h2>
+        <h3 class="fragment">问题？</h3>
+        <pre style="font-size: .75em;"><code>
+.foo {
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -o-transition: width .3s;
+  transition: width .3s;
+}
+
+.bra {
+  -webkit-transition: margin .6s;
+  -moz-transition: margin .6s;
+  -o-transition: margin .6s;
+  transition: margin .6s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>CSS 预处理器(mixin)...</h2>
+        <pre style="font-size: 1em;"><code>
+.foo .bar {
+  -webkit-transition: width .3s;
+  -moz-transition: width .3s;
+  -o-transition: width .3s;
+  transition: width .3s;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2><a href="http://jsbin.com/gufoko/quiet">Autoprefixer</a></h2>
+        <ul>
+          <li>只用写标准的 CSS 属性</li>
+          <li>不仅可以增加前缀，还可以批量删除</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>第四日</h2>
+        <h3>左右开弓，谁主沉<span style="font-size: 86px; color: #2972B0;">浮</span></h3>
+      </section>
+
+      <section>
+        <h2>闭合浮动</h2>
+        <pre><code>
+.clearfix {
+  *zoom: 1;
+}
+.clearfix:after {
+  clear: both;
+}
+.clearfix:before,
+.clearfix:after {
+  content: ' ';
+  display: table;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>闭合浮动</h2>
+        <h3>问题?</h3>
+        <pre class="fragment"><code>
+<nav class="clearfix">...</nav>
+...
+<header class="clearfix">
+  ...
+  <div class="clearfix">
+    ...
+    <span class="clearfix">...</span>
+  </div>
+  <span class="clearfix">...</span>
+</header>
+</code></pre>
+      </section>
+
+      <section>
+        <h2>闭合浮动</h2>
+        <h3>小二，能不能来一斤情怀？</h3>
+        <pre style="font-size: 2em;"><code>
+.foo{
+  clear: fix;
+  /* or */
+  +clear: fix;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>CSS Grace</h2>
+        <pre><code>
+.foo {
+  clear: fix;
+  overflow: hidden; /* 已经可以闭合浮动了 */
+}
+</code></pre>
+
+        <pre><code>
+.foo {
+  overflow: hidden; /* 已经可以闭合浮动了 */
+}
+</code></pre>
+      </section>
+
+
+
+      <section>
+        <h2>第五日</h2>
+        <h3>前后并济，可攻可<span class="" style="font-size: 86px; color: #2972B0;">受</span></h3>
+      </section>
+
+
+
+
+
+      <section>
+        <h2>从预处理器到后处理器</h2>
+      </section>
+
+
+
+      <section>
+        <h2>什么是CSS后处理器？</h2>
+        <ul>
+          <li>CSS 压缩：<a href="https://github.com/jakubpawlowicz/clean-css" target="_blank">clean-css</a>
+          </li>
+          <li>自动加前缀：<a href="https://github.com/postcss/autoprefixer" target="_blank">Autoprefixer</a>（基于 PostCSS）</li>
+          <li>CSS 属性排序：CSScomb</li>
+          <li><a href="https://github.com/reworkcss/rework" target="_blank">Rework</a>，取代 Stylus</li>
+          <li><a href="https://github.com/postcss/postcss" target="_blank">PostCSS</a>
+            <ol class="fragment">
+              <li>更易扩展的 API</li>
+              <li>更好用的 Source Map</li>
+              <li>保留空白符</li>
+            </ol>
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2><small>预处理与后处理器的关系</small></small></h2>
+        <img src="img/css-flow.png" alt="一条河流从左上角流至右下角：代表CSS的工作流程。上游有个房子，代表预处理器。下游也有个房子，代表后处理器">
+      </section>
+
+      <section>
+        <h2><small>预处理与后处理器的关系</small></small></h2>
+        <p><img src="img/IMG_2447.png" width="600" alt="">
+        </p>
+      </section>
+
+      <section>
+        <h2><small>预处理与后处理器的关系</small></small></h2>
+        <p><img src="img/papa.gif" width="500" alt="">
+        </p>
+      </section>
+
+      <section>
+        <h2>后处理器特性</h2>
+        <ul>
+          <li>CSS 原生语法，学习成本低</li>
+          <li>支持预处理器，完善整个 CSS 工作流</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>CSS Grace</h2>
+        <h3>position: center</h3>
+        <pre><code>
+.foo {
+  position: center;
+  width: 400px;
+  height: 310px;
+}
+</code></pre>
+      </section>
+
+      <section>
+        <h2>CSS Grace</h2>
+        <img src="https://camo.githubusercontent.com/e396746eaa9a2eb406b4482bf07f0981104ac028/687474703a2f2f67746d7330312e616c6963646e2e636f6d2f7470732f69312f5442315a436533475658585858627a5846585852693438495858582d3738302d3631302e676966" alt="">
+      </section>
+
+      <section>
+        <h2>CSS Grace</h2>
+        <img src="https://camo.githubusercontent.com/bc3405169198f46ea05f7c1d3b7fab127a7ddc13/687474703a2f2f67746d7330322e616c6963646e2e636f6d2f7470732f69322f54423155496a7947565858585863436158585878323734467058582d3837372d3333392e676966" alt="">
+      </section>
+
+      <section>
+        <h2>后处理器特性</h2>
+        <h3>把逻辑交给 JS</h3>
+        <img src="img/jsmixin.png" height="453" width="914" alt="">
+      </section>
+
+      <section>
+        <h2>后处理器特性</h2>
+        <h3>面向未来（CSS Polyfill）</h3>
+        <p>CSS Grace 展望</p>
+        <pre class="fragment"><code>
+//多行溢出显示省略号
+.foo {
+  text-overflow: ellipsis;
+  max-lines: 4;
+}
+//自定义三角属性
+.bar {
+  triangle: top 10px red;
+  triangle: top-right 20px #ccc;
+}
+</code></pre>
+      </section>
+
+
+
+      <section>
+        <h2>工作流</h2>
+        <h3>Gulp</h3>
+        <pre><code>
+var gulp = require('gulp');
+var rename = require('gulp-rename');
+var postcss = require('gulp-postcss');
+var cssgrace = require('cssgrace');
+
+gulp.task('default', function () {
+    var processors = [
+        cssgrace
+    ];
+    return gulp.src('src/*.css')
+        .pipe(postcss(processors))
+        .pipe(rename('gulp.css'))
+        .pipe(gulp.dest('build'))
+});
+gulp.watch('src/*.css', ['default']);
+</code></pre>
+      </section>
+
+      <section data-background="img/88.jpg">
+        <h2>欢迎拿完年终奖来大阿里</h2>
+        <h3 style="color: #888;">jie.lijie@alibaba-inc.com</h3>
+      </section>
+    </div>
+
+  </div>
+
+  <div class="powered">
+    <p>《CSS 工作流》</p>
+  </div>
+  <div class="mux-logo">
+    <img src="http://gtms01.alicdn.com/tps/i1/T1PY5OFBXdXXcMmhDl-216-94.png" alt="">
+  </div>
+
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.min.js"></script>
+
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    mouseWheel: false,
+    keyboard: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Parallax scrolling
+    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    // parallaxBackgroundSize: '2100px 900px',
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [{
+      src: 'lib/js/classList.js',
+      condition: function() {
+        return !document.body.classList;
+      }
+    }, {
+      src: 'plugin/markdown/marked.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/markdown/markdown.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/highlight/highlight.js',
+      async: true,
+      callback: function() {
+        hljs.initHighlightingOnLoad();
+      }
+    }, {
+      src: 'plugin/zoom-js/zoom.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }, {
+      src: 'plugin/notes/notes.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }]
+  });
+
+  $('canvas').on('click', function() {
+    socket.emit('clear');
+  });
+  </script>
+</body>
+
+</html>
