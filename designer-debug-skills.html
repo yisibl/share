@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+
+<head>
+  <meta charset="utf-8">
+  <title>设计师需要了解的调试技巧</title>
+  <meta name="author" content="yisi">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1">
+  <link rel="stylesheet" href="css/reveal.min.css">
+  <link rel="stylesheet" href="css/theme/paper.css" id="theme">
+  <!-- For syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/zenburn.css">
+  <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+  <script>
+  document.write('<link rel="stylesheet" href="css/print/' + (window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper') + '.css" type="text/css" media="print">');
+  </script>
+  <!--[if lt IE 9]>
+  <script src="lib/js/html5shiv.js"></script>
+  <![endif]-->
+  <style>
+  /* 代码字体大小 */
+
+  .reveal pre {
+    font-size: .9em;
+  }
+
+  .reveal li {
+    margin-top: 6px;
+  }
+
+  .summary .line {
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .summary .line > a {
+    display: table-cell;
+    vertical-align: middle;
+    width: 180px;
+    text-align: center;
+  }
+
+  .summary .content {
+    display: table-cell;
+    vertical-align: middle;
+    padding-left: 20px;
+    text-align: left;
+    overflow: hidden;
+    *zoom: 1;
+  }
+
+  .powered {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    color: #555;
+  }
+
+  .powered p {
+    margin: 6px auto;
+  }
+
+  .powered a {
+    color: #555;
+  }
+
+  .reveal>.backgrounds .slide-background:nth-of-type(1),
+  .reveal>.backgrounds .slide-background:nth-of-type(2) {
+    background-size: cover;
+    /*background-size: contain; */
+
+    background-position: 50% 10%;
+    background-color: #9cbfe9;
+  }
+
+  .reveal .author {
+    margin-top: 120px;
+    font-size: 30px;
+    text-align: left;
+    margin-left: 150px;
+  }
+
+  .reveal .title {
+    color: #333;
+    font-size: 70px;
+    text-align: left;
+    width: 800px;
+    position: absolute;
+    left: 50%;
+    top: -100px;
+    margin-left: -350px;
+    text-shadow: none;
+  }
+
+  .reveal .title strong {
+    font-weight: normal;
+    display: inline-block;
+    font-size: 130%;
+    line-height: 1.5;
+  }
+
+  .reveal .design {
+    text-align: left;
+    color: #aaa;
+    font-size: 14px;
+    position: absolute;
+    bottom: -200px;
+    left: 0;
+  }
+
+  .reveal .mark {
+    font-family: arial, sans-serif !important;
+    margin-right: .25em;
+    display: inline-block;
+    color: #E56F3B;
+  }
+
+  .reveal h1 {
+    font-size: 80px;
+    text-shadow: none;
+  }
+
+  .reveal h2 {
+    font-size: 60px;
+  }
+
+  .reveal .sub-title {
+    display: block;
+    margin-top: 10px;
+    font-size: 78px;
+  }
+
+  .fade-box {
+    position: relative;
+    min-height: 500px;
+  }
+
+  .qrcode {
+    width: 500px;
+  }
+
+  .user .con {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding-right: 20px;
+  }
+
+  .user .con img {
+    max-height: none;
+    max-width: 100%;
+  }
+
+  .user .con h3+h3 {
+    border-bottom: 2px solid #000;
+    min-width: 3em;
+    line-height: 1.3;
+  }
+
+  .phiz {
+    position: absolute;
+    z-index: 909;
+    top: 260px;
+    right: -10px;
+    border-radius: 140px 130px 160px 120px;
+  }
+
+  .fade-box .fragment {
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto !important;
+  }
+  </style>
+  <style>
+  .canvas {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .head {
+    height: 460px;
+    text-align: center;
+  }
+
+  .head p {
+    font-size: 32px;
+    color: #E56F3B;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  .head .face {
+    -webkit-transition: .36s linear;
+    transition: .36s linear;
+    max-width: 80%;
+  }
+
+  .head:hover {
+    /*border-radius: 210px 220px 240px 190px / 230px 180px 310px 250px;*/
+  }
+  </style>
+  <script type="text/javascript" src="js/jquery-2.1.0.min.js"></script>
+  <script type="text/javascript" src="js/socket.io.min.js"></script>
+  <script type="text/javascript" src="js/qrcode.min.js"></script>
+  <script type="text/javascript">
+  var env;
+
+  $.ajax({
+    // url: 'http://localhost:3000/getEnv',
+    // dataType: 'jsonp',
+    // success: function(data) {
+    //   env = data;
+
+    url: 'http://localhost:3000/env',
+    dataType: 'jsonp',
+    success: function(data) {
+      env = data;
+
+      // draw qrcode
+      var qrcodedraw = new QRCodeLib.QRCodeDraw();
+      var request = ['http://', env.ip, ':', env.port, '/mobile/control'].join('');
+      qrcodedraw.draw(document.querySelector('.qrcode'), request, function(err) {
+        if (err) {
+          return console.log(err.message);
+        }
+      });
+    }
+  })
+
+
+  var socket = io.connect('http://localhost:3000');
+
+  socket.on('animate', function() {
+    if ($('#qrcode').css('display') !== 'none') {
+      $('#demo-github').toggleClass('active');
+    }
+  })
+
+  var socket = io.connect('http://localhost:3000');
+  socket.emit('ppt');
+
+  socket.on('ppt left', function() {
+    Reveal.left();
+  });
+
+  socket.on('ppt right', function() {
+    Reveal.right();
+  });
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <!-- 二维码 -->
+      <section>
+        <canvas class="qrcode"></canvas>
+      </section>
+      <section data-background-transition="slide" data-background="imgs/banner.png">
+        <h1 class="title">设计师需要了解的 <strong>调试技巧</strong></h1>
+      <p class="author fragment">
+        壹丝 · 2015-6-24 · 杭州</p>
+      </p>
+      <p class="design">
+        Design by Paper
+      </p>
+      </section>
+      <section data-background-transition="slide"  data-background="imgs/banner.png">
+        <h1>故事</h1>
+      </section>
+      <section data-background-transition="slide">
+        <img src="imgs/b.jpg" width="500" alt="">
+      </section>
+      <section data-background-transition="slide">
+        <h1>设计的还原</h1>
+        <p>从 PS 到 CSS</p>
+        <img src="imgs/ps.png" height="295" width="567" alt="">
+      </section>
+
+      <section data-background-transition="slide">
+        <h1>Chrome 调试工具</h1>
+        <h2>打开方式</h2>
+        <ul>
+          <li>
+            <p>右键→审查元素</p>
+            <img src="imgs/right.png" alt="">
+          </li>
+        </ul>
+      </section>
+      <section data-background-transition="slide">
+        <h1>Chrome 调试工具</h1>
+        <h2>打开方式</h2>
+        <ul>
+          <li>
+            Windows/Linux:
+            <!-- <span class="mark"></span> -->
+            <span class="mark">Ctrl</span>+
+            <span class="mark">Shift</span>+
+            <span class="mark">I</span>
+          </li>
+          <li>
+            Mac:
+            <span class="mark">⌘</span>+
+            <span class="mark">⌥</span>+
+            <span class="mark">I</span>
+          </li>
+          <li>
+            或者： <span class="mark">F12</span>
+          </li>
+        </ul>
+      </section>
+      <section>
+        <h1>Chrome 调试工具</h1>
+        <p>所有演示使用最新的 Chrome Canary<a href="https://www.google.com/chrome/browser/canary.html" target="_blank">下载</a></p>
+        <img src="imgs/devtools.png" height="496" width="685" alt="">
+      </section>
+      <section>
+        <h1>Firefox 调试工具</h1>
+        <img src="imgs/firefox.png" height="496" width="685" alt="">
+      </section>
+      <section>
+        <h1>PS 与 CSS </h1>
+        <h2>字体</h2>
+        <img src="imgs/font.png" height="360" width="732" alt="">
+      </section>
+      <section>
+        <h1>PS 与 CSS </h1>
+        <h2>查看实际渲染字体</h2>
+        <img src="imgs/font-chrome.png" height="304" width="407" alt="">
+        <img src="imgs/font-firefox.png" alt="" width="280" height="315">
+      </section>
+      <section>
+        <h1>PS 与 CSS </h1>
+        <h2>尺寸，间距</h2>
+        <img src="imgs/box.png" width="500" alt="">
+      </section>
+      <section>
+        <h1>PS 与 CSS </h1>
+        <h2>描边，背景，圆角</h2>
+        <p><img src="imgs/border.png" alt=""></p>
+      </section>
+
+      <section>
+        <h2>示例</h2>
+        <p>点击修改数值试试效果</p>
+        <style style="display: block; white-space: pre; color:#fff; background: #333;text-align: left; padding: 0 20px; font-size: 26px;line-height: 1.3;" contenteditable>
+.head .face {
+  border: 3px solid #000;
+  border-radius: 180px 210px 230px 160px;
+}
+        </style>
+        <div class="canvas">
+          <div class="head">
+            <p>吓得我脸都变圆了</p>
+            <img class="face" src="imgs/baozou.png" alt="暴走表情">
+          </div>
+        </div>
+      </section>
+      <section>
+        <h2>示例</h2>
+        <style style="display: block; white-space: pre; color:#fff; background: #333;text-align: left; padding: 0 20px; font-size: 26px;line-height: 1.3;" contenteditable>
+.head2 .face {
+  background-color: lightgreen;
+}
+        </style>
+        <div class="canvas">
+          <div class="head head2">
+            <p>吓得我脸都变绿了</p>
+            <img class="face" src="imgs/baozou.png" alt="暴走表情">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h1>开发者工具修改 CSS</h1>
+        <img src="imgs/step.gif" height="600" width="550" alt="">
+      </section>
+
+      <section>
+        <h2>示例</h2>
+        <p>试试直接用开发者工具修改</p>
+        <style style="display: block; white-space: pre; color:#fff; background: #333;text-align: left; padding: 0 20px; font-size: 26px;line-height: 1.3;" contenteditable>
+.head3 .face {
+  border-radius: 180px 210px 30px 30px;
+}
+        </style>
+        <div class="canvas">
+          <div class="head head3">
+            <p>吓得我脸都变方哥了</p>
+            <img class="face" src="imgs/baozou.png" alt="暴走表情">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2>示例</h2>
+        <style style="display: block; white-space: pre; color:#fff; background: #333;text-align: left; padding: 0 20px; font-size: 26px;line-height: 1.3;" contenteditable>
+.head4 .face {
+  margin-left: 80px;
+  display: inline-block;
+}
+        </style>
+        <div class="canvas">
+          <div class="head head4">
+            <p>吓得我都分身了</p>
+            <img class="face" src="imgs/baozou.png" alt="暴走表情">
+             <img class="face" src="imgs/baozou.png" alt="暴走表情">
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h1>PS 与 CSS </h1>
+        <h2>颜色选择器</h2>
+        <ul>
+        <li>多种颜色模式可选</li>
+          <li>可以吸取页面上的颜色</li>
+        </ul>
+        <p>
+        <img src="http://ww1.sinaimg.cn/mw1024/c1608aa0gw1erkbrv4z52g20au08mqfw.gif" height="255" width="237" alt=""></p>
+      </section>
+
+      <section>
+        <h1><a href="http://thx.github.io/" target="_blank">响应式调试</a></h1>
+        <img src="imgs/response.png" alt="">
+      </section>
+
+      <section>
+        <h1><a href="http://thx.github.io/" target="_blank">响应式调试</a></h1>
+        <p>XCode 自带的 iOS 模拟器</p>
+        <p><img src="imgs/xcode.png" alt=""></p>
+
+      </section>
+
+      <section>
+        <h1>过渡效果调试</h1>
+        <p>CSS 对应 transition 属性</p>
+        <img src="imgs/transition.gif" height="363" width="281" alt="">
+      </section>
+
+      <section>
+        <h1><a href="http://tympanus.net/Development/3DEffectMobileShowcase/index2.html" target="_blank">动画调试</a></h1>
+        <p>CSS 对应 animation 属性</p>
+        <img src="imgs/timeline.gif"  width="690" alt="">
+      </section>
+
+      <section>
+        <h1>让设计活起来</h1>
+      </section>
+
+       <section data-background="imgs/88.jpg">
+        <h2>Thank You</h2>
+      </section>
+    </div>
+  </div>
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.min.js"></script>
+  <script>
+  // Full list of configuration options available here:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+    mouseWheel: false,
+    keyboard: true,
+
+    theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+    transition: Reveal.getQueryHash().transition || 'concave', // default/cube/page/concave/zoom/linear/fade/none
+
+    // Parallax scrolling
+    // parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+    // parallaxBackgroundSize: '2100px 900px',
+
+    // Optional libraries used to extend on reveal.js
+    dependencies: [{
+      src: 'lib/js/classList.js',
+      condition: function() {
+        return !document.body.classList;
+      }
+    }, {
+      src: 'plugin/markdown/marked.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/markdown/markdown.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/highlight/highlight.js',
+      async: true,
+      callback: function() {
+        hljs.initHighlightingOnLoad();
+      }
+    }, {
+      src: 'plugin/zoom-js/zoom.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }, {
+      src: 'plugin/notes/notes.js',
+      async: true,
+      condition: function() {
+        return !!document.body.classList;
+      }
+    }]
+  });
+
+  $('canvas').on('click', function() {
+    socket.emit('clear');
+  });
+  </script>
+</body>
+
+</html>
