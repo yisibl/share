@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>CSS in 2016</title>
+  <meta name="description" content="CSS in 2016， 一丝 2017-03-21 杭州">
+  <meta name="author" content="一丝">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="stylesheet" href="css/reveal.css">
+  <link rel="stylesheet" href="css/theme/paper.css" id="theme">
+  <!-- Code syntax highlighting -->
+  <link rel="stylesheet" href="lib/css/github.css">
+  <link rel="stylesheet" href="css/user.css">
+  <!-- Printing and PDF exports -->
+  <script>
+  var link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.type = 'text/css';
+  link.href = window.location.search.match(/print-pdf/gi) ? 'css/print/pdf.css' : 'css/print/paper.css';
+  document.getElementsByTagName('head')[0].appendChild(link);
+  </script>
+  <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+  <style>
+  .background {
+    background: rgba(255, 255, 255, 0.6);
+    padding: 20px !important;
+    backdrop-filter: blur(3px);
+  }
+
+  .light h1 {
+
+    color: transparent;
+    -webkit-text-stroke: 4px #ef7a2e;
+    font-weight: 900;
+    background-image: linear-gradient(-40deg, transparent 0%, transparent 40%, rgba(255, 255, 255, .8) 50%, transparent 60%, transparent 100%);
+    background-position: -680px 0;
+    -webkit-background-clip: text;
+    background-clip: text;
+    /*-webkit-text-fill-color: transparent;*/
+    animation: chrome_effect 6s 2s linear infinite;
+    -webkit-filter: drop-shadow(2px 2px 0 rgba(255, 255, 255, 0.2));
+}
+
+
+@keyframes chrome_effect {
+  0% {background-position: -680px 0;}
+  10% {background-position: 420px 0;}
+  100% {background-position: 420px 0;}
+}
+
+  .light h3 {
+    color: #fff;
+  }
+
+  .gif {
+    position: fixed;
+    left: 0;
+    animation: hidden 6s infinite both;
+    transform: translateY(110%)
+  }
+
+  @keyframes hidden {
+    30% { transform: translateY(62%); }
+    80% { transform: translateY(62%); }
+  }
+
+  textarea {
+    width: 100%;
+  }
+  
+  .reveal pre code {
+    color: #333;
+    background: #f8f8f8;
+  }
+  
+  textarea {
+    color: #333;
+    background: #f8f8f8;
+    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);
+    padding: 5px;
+    font-family: monospace;
+    font-size: 70%;
+    line-height: 1.2em;
+  }
+
+  .slide-background:nth-child(1) {
+  } 
+
+  </style>
+
+  <style id="tmp">
+
+  </style>
+  <script>
+  function applyCSS(textarea) {
+    var tmp = document.getElementById("tmp");
+    tmp.innerHTML = textarea.value.replace(/^(\.\w+)/g, "#" + textarea.getAttribute("data-id") + " $1");
+    textarea.rows = textarea.value.split(/\n/).length;
+  }
+  </script>
+</head>
+
+<body>
+  <div class="reveal">
+    <div id="footer" class="footer"></div>
+    <!-- Any section element inside of this container is displayed as a slide -->
+    <div class="slides">
+      <section data-background="img/bg2.jpg" data-background-transition="slide" class="light">
+        <iframe src="./gif.html" class="gif" width="400" height="400" frameborder="0"></iframe>
+        <h1>CSS in 2016</h1>
+        <h3>
+          <small style="color: #fff; text-shadow: -1px -1px 0 rgba(0, 0, 0, .3)">壹丝 · 2017-03-21 · 杭州</small>
+        </h3>
+      </section>
+
+      <section data-background="img/birthday.jpg" data-background-transition="slide" class="background">
+        <h1><a href="https://www.w3.org/Style/CSS20/" target="_blank">CSS 20周年</a></h1>
+        <p>1996.9.17 — 2016.9.17</p>
+      </section>
+
+      <section class="background">
+        <h1>CSS 3</h1>
+        <p>1999.6.22</p>
+        <p>Color Profiles, Multi-column, Paged Media</p>
+      </section>
+
+      <section class="">
+        <h1>CSS 3 2016 支持情况</h1>
+        <img src="img/CSS-2016.png" alt="">
+      </section>
+
+      <section data-background="img/Fireworks.jpg" data-background-transition="slide" class="background">
+        <h1>Now</h1>
+      </section>
+
+      <section>
+        <h1>100+个模块</h1>
+        <img src="img/csswg.png">
+      </section>
+
+      <section>
+        <h1>W3C 工作组</h1>
+        <ul>
+          <li class="format"><a href="https://drafts.csswg.org/" target="_blank">CSS Working Group(CSSWG)</a></li>
+          <li class=""><a href="https://drafts.fxtf.org/" target="_blank">FX Task Force(FXTF)</a></li>
+          <li class=""><a href="https://drafts.css-houdini.org/" target="_blank">CSS Houdini</a></li>
+        </ul>
+      </section>
+
+      <section data-background="img/now.jpg" data-background-transition="slide"  class="background">
+        <h1>CSS 现状</h1>
+      </section>
+
+      <section>
+        <ul>
+          <li class="">动画</li>
+          <li class="">文字排版</li>
+          <li class="">图片与颜色</li>
+          <li class="">用户界面</li>
+          <li class="">布局</li>
+          <!-- <li class="">Houdini</li> -->
+        </ul>
+      </section>
+
+      <section>
+        <h1>动画</h1>
+      </section>
+
+      <section>
+        <p>Mass(质量),  Stiffness(刚度), Damping(阻尼), Initial Velocity(初速度)</p>
+        <img src="img/spring.png">
+      </section>
+
+      <section>
+        <h1>弹性动画</h1>
+        <p data-height="400" data-theme-id="light" data-slug-hash="Pzbxje" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="CSS spring animation demo by percyley" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/Pzbxje/">CSS spring animation demo by percyley</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>路径动画</h1>
+        <pre>
+          <code class="css" data-trim>
+            .foo {
+              offset-path: path('m232.771103, 329.79953c-102.829727,...');
+            }
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <p data-height="600" data-theme-id="light" data-slug-hash="zGzJYd" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="zGzJYd" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/zGzJYd/">zGzJYd</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <p data-height="560" data-theme-id="light" data-slug-hash="rOqQqz" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="CSS Animate on SVG Path" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/rOqQqz/">CSS Animate on SVG Path</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>step animation</h1>
+        <p data-height="265" data-theme-id="light" data-slug-hash="LpXVJb" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="Twitter heart button animation" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/LpXVJb/">Twitter heart button animation</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>step animation</h1>
+        <img src="img/web_heart_animation.png">
+        <p>内网送花系统</p>
+      </section>
+
+      <section data-background="img/type.jpg" data-background-transition="slide" class="background">
+        <h1>文字排版</h1>
+      </section>
+
+      <section>
+        <h1>下划线</h1>
+        <style>
+          .underline-demo {
+            text-decoration: underline;
+            line-height: 1.8 !important;
+            color: #ef7a2e !important;
+          }
+        </style>
+        <h3 class="underline-demo">创意中心(chuangyi.alibaba-inc.com)是史上最强大的创意平台</h3>
+      </section>
+
+      <section>
+        <h1><a href="https://medium.design/crafting-link-underlines-on-medium-7c03a9274f9">Medium</a></h1>
+        <img src="img/underline.png">
+      </section>
+
+      <section>
+        <img src="https://cdn.css-tricks.com/wp-content/uploads/2016/09/underlines.png">
+      </section>
+
+      <section>
+        <h1>Demo</h1>
+        <p data-height="500" data-theme-id="light" data-slug-hash="JXZrqy" data-default-tab="html,result" data-user="johndjameson" data-embed-version="2" data-pen-title="Underlines 8: SVG Filters" class="codepen">See the Pen <a href="http://codepen.io/johndjameson/pen/JXZrqy/">Underlines 8: SVG Filters</a> by John D. Jameson (<a href="http://codepen.io/johndjameson">@johndjameson</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h2><a href="https://css-tricks.com/styling-underlines-web/">text-decoration-skip: objects</a></h2>
+      </section>
+
+      <section>
+        <h1>下划线</h1>
+        <style>
+          .underline-demo {
+            text-decoration: underline;
+            line-height: 1.8 !important;
+            color: #ef7a2e !important;
+          }
+        </style>
+        <h3 class="underline-demo">创意中心(chuangyi.alibaba-inc.com)是史上最强大的创意平台</h3>
+      </section>
+
+      <section>
+        <h2>text-underline-position: under</h2>
+        <style>
+          .underline-demo2 {
+            text-decoration: underline;
+            line-height: 1.8 !important;
+            color: #ef7a2e !important;
+            text-underline-position: under;
+          }
+        </style>
+        <h3 class="underline-demo2">创意中心(chuangyi.alibaba-inc.com)是史上最强大的创意平台</h3>
+      </section>
+
+      <section>
+        <h1>溢出隐藏文字</h1>
+        <img class="" src="img/zirantang-after.png">
+        <img class="fragment" src="img/zirantang-before.png">
+      </section>
+
+      <section>
+        <h1>使用 linear-gradient</h1>
+        <pre>
+          <code class="css" data-trim>
+            header .title:after {
+              content: '';
+              position: absolute;
+              right: 0;
+              top: 0;
+              width: 100%;
+              height: 100%;
+              background: linear-gradient(to right, 
+                rgba(255, 255, 255, 0), #fff)
+              no-repeat 14em 0;
+              background-size: 2.1em 100%;
+            }
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <h1>使用 masks</h1>
+        <pre>
+          <code class="css" data-trim>
+            header .title {
+              mask: linear-gradient(to right, 
+                    #fff 14em, rgba(0, 0, 0, 0))
+                    no-repeat;
+            }
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <h1>图片与颜色</h1>
+      </section>
+
+      <section>
+        <h1>CSS Masks</h1>
+        <p data-height="400" data-theme-id="light" data-slug-hash="wFrAq" data-default-tab="result" data-user="iamvdo" data-embed-version="2" data-pen-title="Applying a CSS and SVG mask" class="codepen">See the Pen <a href="http://codepen.io/iamvdo/pen/wFrAq/">Applying a CSS and SVG mask</a> by Vincent De Oliveira (<a href="http://codepen.io/iamvdo">@iamvdo</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+        
+      </section>
+
+      <section>
+        <h1><a href="http://lab.iamvdo.me/css-svg-masks/#testM2">CSS Mask Demo</a></h1>
+      </section>
+
+      <section>
+        <h1><a href="http://bennettfeely.com/clippy/">clip-path</a></h1>
+        <video src="img/clip.mp4" autoplay loop></video>
+      </section>
+
+      <section>
+        <style type="text/css">
+          .clip-path-code {
+            position: absolute;
+            top: 230px;
+            left: 22px;
+          }
+        </style>
+        <p><a href="https://chuangyi.alibaba-inc.com/creations/6305695">创意模板</a></p>
+        <img class="" src="img/clip-path2.png">
+        <img class="fragment fade-up" src="img/clip-path1.png">
+        <img class="fragment fade-up clip-path-code" src="img/clip-path-code.png">
+      </section>
+
+      <section>
+        <p><a href="https://chuangyi.alibaba-inc.com/creations/8547154">淘宝右上角撕页广告</a></p>
+        <video src="img/clip-2.mp4" autoplay loop></video>
+      </section>
+
+      <section>
+        <h1>活动 Demo</h1>
+        <p data-height="400" data-theme-id="light" data-slug-hash="LVMmQy" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="CSS radar animation" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/LVMmQy/">CSS radar animation</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>背景混合模式</h1>
+        <p>background-blend-mode</p>
+        <img src="img/bgbm.png">
+      </section>
+
+      <section>
+        <p data-height="560" data-theme-id="light" data-slug-hash="dvKta" data-default-tab="result" data-user="yisi" data-embed-version="2" data-pen-title="CSS Background Blending Modes（CSS背景混合模式）翻译:一丝" class="codepen">See the Pen <a href="http://codepen.io/yisi/pen/dvKta/">CSS Background Blending Modes（CSS背景混合模式）翻译:一丝</a> by 一丝 (<a href="http://codepen.io/yisi">@yisi</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>文字裁剪</h1>
+        <p>background-clip: text</p>
+        <img src="http://ww1.sinaimg.cn/mw1024/534b48acgw1f3vczy19n6g208c08zagn.gif">
+      </section>
+
+      <section>
+        <p data-height="560" data-theme-id="light" data-slug-hash="wBxWzq" data-default-tab="css,result" data-user="ginfuru" data-embed-version="2" data-pen-title="idea for newsletter" class="codepen">See the Pen <a href="http://codepen.io/ginfuru/pen/wBxWzq/">idea for newsletter</a> by Ed (<a href="http://codepen.io/ginfuru">@ginfuru</a>) on <a href="http://codepen.io">CodePen</a>.</p>
+<script async src="https://production-assets.codepen.io/assets/embed/ei.js"></script>
+      </section>
+
+      <section>
+        <h1>用户界面</h1>
+      </section>
+
+      <section>
+        <h1>box-sizing</h1>
+        <ul>
+          <li>border-box</li>
+          <li>content-box</li>
+          <li>padding-box?</li>
+        </ul>
+      </section>
+
+      <section>
+        <h1>box-sizing reset</h1>
+        <pre>
+          <code class="css" data-trim>
+            html {
+              box-sizing: border-box;
+            }
+            *, *:before, *:after {
+              box-sizing: inherit;
+            }
+          </code>
+        </pre>
+      </section>
+
+      <section>
+        <h1>user-select: none</h1>
+        <img src="img/usn.png">
+      </section>
+
+      <section data-background="img/chess-grid.jpg" class="background">
+        <h1>布局</h1>
+        <p>《CSS 布局大进化》</p>
+      </section>
+
+      <section>
+        <h1>Thanks!</h1>
+      </section>
+    </div>
+  </div>
+  <script src="lib/js/head.min.js"></script>
+  <script src="js/reveal.js"></script>
+  <script>
+  // Full list of configuration options available at:
+  // https://github.com/hakimel/reveal.js#configuration
+  Reveal.initialize({
+    controls: true,
+    progress: true,
+    history: true,
+    center: true,
+
+    transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+    // Optional reveal.js plugins
+    dependencies: [{
+      src: 'lib/js/classList.js',
+      condition: function() {
+        return !document.body.classList;
+      }
+    }, {
+      src: 'plugin/markdown/marked.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/markdown/markdown.js',
+      condition: function() {
+        return !!document.querySelector('[data-markdown]');
+      }
+    }, {
+      src: 'plugin/highlight/highlight.js',
+      async: true,
+      condition: function() {
+        return !!document.querySelector('pre code');
+      },
+      callback: function() {
+        hljs.initHighlightingOnLoad();
+      }
+    }, {
+      src: 'plugin/zoom-js/zoom.js',
+      async: true
+    }, {
+      src: 'plugin/notes/notes.js',
+      async: true
+    }]
+  });
+
+  function applyCSSToTextAreas(event) {
+    var textareas = event.currentSlide.getElementsByTagName('textarea');
+    for (var i = 0; i < textareas.length; i++) {
+      applyCSS(textareas[i]);
+    }
+  }
+
+  function showAndSetFooterIfNeeded(event) {
+    var footerText = event.currentSlide.getAttribute("data-footer");
+    var footer = document.getElementById("footer");
+    footer.style.display = "none";
+    if (footerText) {
+      footer.innerHTML = footerText;
+      footer.style.display = "block";
+    }
+  }
+
+  Reveal.addEventListener('slidechanged', applyCSSToTextAreas);
+  Reveal.addEventListener('slidechanged', showAndSetFooterIfNeeded);
+  Reveal.addEventListener('ready', applyCSSToTextAreas);
+  Reveal.addEventListener('ready', showAndSetFooterIfNeeded);
+
+  // Initialize textareas
+  var textareas = document.getElementsByTagName('textarea');
+  for (var i = 0; i < textareas.length; i++) {
+    var textarea = textareas[i];
+    textarea.addEventListener('input', function() {
+      applyCSS(this);
+    });
+  }
+  </script>
+</body>
+
+</html>
