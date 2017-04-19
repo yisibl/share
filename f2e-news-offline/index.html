@@ -1,0 +1,415 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>前端快爆线下版</title>
+    <meta name="description" content="">
+    <meta name="author" content="壹丝">
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/user.css">
+    <!-- Theme used for syntax highlighting of code -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,600italic,800|' rel='stylesheet' type='text/css'>
+    <!-- Printing and PDF exports -->
+    <!-- <script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script> -->
+</head>
+
+<body>
+    <div class="reveal">
+        <div class="slides">
+            <section data-state="bg-title">
+                <div class="flex-layout--column">
+                    <div class="cell cell--vpack">
+                        <h1 class="talk--title">
+							<span class="part1" data-layerstack><img src="http://tva2.sinaimg.cn/crop.0.0.180.180.180/c1608aa0jw1e8qgp5bmzyj2050050aa8.jpg" width="160" alt="">前端快爆</span>
+							<span class="part2">线下版</span>
+                        </h1>
+						<p class="part3">壹丝 · 2017-04-18</p>
+                    </div>
+                </div>
+            </section>
+            <section data-state="bg-gradient-intro">
+                <div class="flex-layout--center">
+                    <h1 class="u-center">CSS conic-gradient()</h1>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: conic-gradient(#f06, gold);
+                    }
+                    </style>
+                    <div class="cell | demo"></div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: conic-gradient(#eee .1turn, black, #eee 326deg);
+                    }
+                    </style>
+                    <div class="cell | demo"></div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    /* Hue wheel */
+                    .demo {
+                        background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red);
+                        border-radius: 50%;
+                    }
+                    </style>
+                    <div class="cell | demo-container--skeleton">
+                        <div class="demo demo--skeleton" style="height: 500px;"></div>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    /* Pie chart */
+                    .demo {
+                        background: conic-gradient(from 0deg, yellowgreen 40%, transparent 0);
+                        border-radius: 50%;
+                        position: relative;
+                    }
+                    
+                    .demo:after {
+                        content: '';
+                        width: 80%;
+                        height: 80%;
+                        position: absolute;
+                        border-radius: 50%;
+                        left: 0;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        margin: auto;
+                    }
+                    </style>
+                    <div class="cell | demo-container--skeleton">
+                        <div class="demo demo--skeleton" style="height: 500px;"></div>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    /* Pyramid */
+                    .demo {
+                        background: conic-gradient(#6D9EEB 37.5%, #7F6000 37.5%, #7F6000 43.5%, #FFD966 43.5%, #FFD966 61.5%, #6D9EEB 61.5%);
+                    }
+                    </style>
+                    <div class="cell | demo"></div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <iframe height='800' scrolling='no' title='CSS conic-gradient(Rays of light)' src='https://codepen.io/yisi/embed/jmEGRB/?height=800&theme-id=3324&default-tab=result&embed-version=2' frameborder='no' allowtransparency='true' allowfullscreen='true' style='width: 100%;'>See the Pen <a href='http://codepen.io/yisi/pen/jmEGRB/'>CSS conic-gradient(Rays of light)</a> by 一丝 (<a href='http://codepen.io/yisi'>@yisi</a>) on <a href='http://codepen.io'>CodePen</a>.
+                </iframe>
+            </section>
+            <section>
+                <h1 class="u-center"><a href="https://leaverou.github.io/conic-gradient/" target="_blank">Polyfill</a></h1>
+                <img src="https://img.alicdn.com/tfs/TB1HIvzQFXXXXajXFXXXXXXXXXX-939-712.png" alt="">
+            </section>
+            <section>
+                <h1 class="u-center"><a href="http://codepen.io/search/pens?q=conic-gradient&limit=all&type=type-pens" target="_blank">More Demo</a></h1>
+                <img src="https://img.alicdn.com/tfs/TB1nNLyQFXXXXbuXFXXXXXXXXXX-1181-599.png" alt="">
+            </section>
+            <section data-state="bg-key">
+                <div class="flex-layout--center">
+                    <h1 class="u-center">CSS gradients 历史语法</h1>
+                </div>
+            </section>
+            <section>
+            					<div class="flex-layout--column">
+            						<style class="editor-source" media="-x-fake">
+            	/* Layers */
+            	.demo {
+            		background-image:
+            			linear-gradient( 120deg, #57b4dc 50%, transparent 50% ),
+            			radial-gradient( closest-side circle, #f90 99%, transparent 0 ),
+            			linear-gradient( 120deg, transparent 50%, rebeccapurple 50% );
+            		background-size:
+            			100% 100%,
+            			80% 80%,
+            			100% 100%;
+
+            		background-position:
+            			0 0,
+            			50% 50%,
+            			0 0;
+
+            		background-repeat: no-repeat;
+            	}
+            						</style>
+            						<div class="cell | demo demo--center" data-layerstack>
+            							<h1 class="u-center">
+            								Multiple background
+            							</h1>
+            						</div>
+            						<div class="cell cell--third | editor-container"></div>
+            					</div>
+            				</section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: linear-gradient(to right, #ff625f, #0066cc);
+                    }
+                    </style>
+                    <div class="cell | demo demo--center">
+                        <h1>No color interpolation hint</h1>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: linear-gradient(to right, #ff625f, 80%, #0066cc);
+                    }
+                    </style>
+                    <div class="cell | demo demo--center">
+                        <h1>Color interpolation hint</h1>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: linear-gradient(90deg, #ff525d 0, #ff525d 25%, #4e2054 0, #4e2054 50%, #3eb38a 0, #3eb38a 75%, #ffd15c 0, #ffd15c 100%);
+                    }
+                    </style>
+                    <div class="cell | demo demo--center">
+                        <h1>Multiple color-stop positions</h1>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex-layout--column">
+                    <style class="editor-source" media="-x-fake">
+                    .demo {
+                        background: linear-gradient(90deg, #ff525d 0, #ff525d 25%, #4e2054 0, #4e2054 50%, #3eb38a 0, #3eb38a 75%, #ffd15c 0, #ffd15c 100%);
+                        background: linear-gradient(90deg, #ff525d 0 25%, #4e2054 0 50%, #3eb38a 0 75%, #ffd15c 0 100%);
+                    }
+                    </style>
+                    <div class="cell | demo demo--center">
+                        <h1>Multiple color-stop positions</h1>
+                    </div>
+                    <div class="cell cell--third | editor-container"></div>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex-layout--row" style="flex-direction: column; justify-content: center;">
+                    <h1 style="border: 20px solid lightblue; padding: 50px;">display: contents</h1>
+                    <h2 style="text-decoration: line-through;">盒模型</h2>
+                </div>
+            </section>
+
+            <section>
+            	<div class="flex-layout--row demo-contents">
+                    <h1 class="u-center demo" style="border: 20px solid lightblue; padding: 50px;">display: contents</h1>
+                </div>
+            </section>
+
+            <section data-background-transition="slide" data-background="https://img.alicdn.com/tfs/TB1Nxf1QFXXXXXdXpXXXXXXXXXX-1200-675.png">
+            	<div class="flex-layout--center">
+                    <h1 class="u-center"><a href="https://drafts.csswg.org/css-rhythm/examples/snap-height.html" style="color: #fff" target="_blank">line-height-step <br> Demo</a></h1>
+                </div>
+            </section>
+
+            <section>
+                <div class="flex-layout--center">
+                	<h1>Thanks!</h1>
+                	<img src="https://img.alicdn.com/tfs/TB1slHBQFXXXXccXVXXXXXXXXXX-150-150.png" width="360" alt="二维码">
+                </div>
+            </section>
+        </div>
+    </div>
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    <script src="codemirror/codemirror.js"></script>
+    <script src="codemirror/mode/xml/xml.js"></script>
+    <script src="codemirror/mode/css/css.js"></script>
+    <script src="codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="codemirror/emmet.js"></script>
+    <link href="codemirror/codemirror.css" rel="stylesheet">
+    <link href="codemirror/dracula.css" rel="stylesheet">
+    <script src="layerstack.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+    <script src="//leaverou.github.io/conic-gradient/conic-gradient.js"></script>
+    <link href="layerstack.css" rel="stylesheet">
+    <script>
+    // Global ref to CodeMirror editor
+    var editor;
+    // Global ref to LayerStack instance
+    var stack;
+    // Keyboard shortcuts for Emmet in CodeMirror instance
+    var emmetKeyOptions = {
+        // 'Cmd-E': 'emmet.expand_abbreviation',
+        'Tab': 'emmet.expand_abbreviation_with_tab',
+        'Cmd-D': 'emmet.balance_outward',
+        'Shift-Cmd-D': 'emmet.balance_inward',
+        'Cmd-M': 'emmet.matching_pair',
+        'Shift-Cmd-A': 'emmet.wrap_with_abbreviation',
+        'Ctrl-Alt-Right': 'emmet.next_edit_point',
+        'Ctrl-Alt-Left': 'emmet.prev_edit_point',
+        'Cmd-L': 'emmet.select_line',
+        'Cmd-Shift-M': 'emmet.merge_lines',
+        'Cmd-/': 'emmet.toggle_comment',
+        'Cmd-J': 'emmet.split_join_tag',
+        'Cmd-K': 'emmet.remove_tag',
+        'Shift-Cmd-Y': 'emmet.evaluate_math_expression',
+
+        'Alt-Up': 'emmet.increment_number_by_1',
+        'Alt-Down': 'emmet.decrement_number_by_1',
+        'Shift-Alt-Up': 'emmet.increment_number_by_10',
+        'Shift-Alt-Down': 'emmet.decrement_number_by_10',
+
+        'Shift-Cmd-.': 'emmet.select_next_item',
+        'Shift-Cmd-,': 'emmet.select_previous_item',
+        'Cmd-B': 'emmet.reflect_css_value',
+
+        'Enter': 'emmet.insert_formatted_line_break_only'
+    };
+
+    function toggleEditorsOnSlideChange(event) {
+        var prev = event.previousSlide;
+        var current = event.currentSlide;
+        var editorContainer, sourceElement;
+
+        // Clear editor from previous slide.
+        if (editor && prev) {
+            // Remove DOM and dereference editor instance. CodeMirror cleans-up after itself.
+            prev.querySelector('.CodeMirror').remove();
+            editor = undefined;
+
+            // Disable stylesheet used with code editor
+            prev.querySelector('.editor-source').setAttribute('media', '-x-fake');
+        }
+
+        editorContainer = current.querySelector('.editor-container');
+        sourceElement = current.querySelector('.editor-source');
+
+        // Enable CodeMirror editor for stylesheet source, if any.
+        if (editorContainer && sourceElement) {
+            editor = CodeMirror(editorContainer, {
+                value: sourceElement.textContent,
+                mode: 'css',
+                theme: 'dracula',
+                profile: 'xhtml'
+            });
+
+            // Manually size editor due to bug with Flexbox layout
+            // @see: https://github.com/codemirror/CodeMirror/issues/3679
+            var rect = editorContainer.getBoundingClientRect();
+            editorContainer.querySelector('.CodeMirror').style.height = rect.height + 'px'
+
+            editor.on('change', function(instance, changeObj) {
+                sourceElement.innerHTML = instance.getValue();
+            });
+
+            // Enable stylesheet
+            sourceElement.setAttribute('media', 'screen');
+            // Forces reflow, otherwise styles don't immediately apply.
+            sourceElement.textContent += ' ';
+
+            // Enable Emmet keyboard shortcuts.
+            emmetCodeMirror(editor, emmetKeyOptions);
+        }
+    }
+
+    /*
+    	Destroy any existing LayerStack instance on slide change.
+    */
+    function destroyLayerStackOnSlideChange(event) {
+        if (stack) {
+            stack.destroy({
+                immediate: true
+            });
+        }
+    }
+
+    /*
+    	Toggle LayerStack on and off by listening for clicks on elements that match [data-layerstack].
+    	Hide the source element (the one whose background is split into layers) while LayerStack is on.
+    */
+    function bootstrapLayerStack() {
+        if (!LayerStack) {
+            console.warn('LayerStack library not loaded')
+            return;
+        }
+
+        document.addEventListener('click', function(e) {
+            if (e.target.dataset && e.target.dataset.layerstack !== undefined) {
+                toggleLayerStack(e.target);
+            }
+        });
+
+        function toggleLayerStack(sourceElement) {
+            // Check for existing global ref and destroy if found.
+            if (stack) {
+                stack.destroy();
+                return;
+            }
+
+            stack = new LayerStack(sourceElement);
+            stack.on('afterdestroy', function() {
+                // Invalidate global ref after DOM cleanup
+                stack = undefined;
+                sourceElement.classList.remove('u-opacity0');
+            });
+
+            sourceElement.classList.add('u-opacity0');
+        }
+    }
+
+    Reveal.addEventListener('slidechanged', toggleEditorsOnSlideChange);
+    Reveal.addEventListener('slidechanged', destroyLayerStackOnSlideChange);
+    Reveal.addEventListener('ready', bootstrapLayerStack);
+
+    // More info https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: false,
+        progress: true,
+        history: true,
+        center: false,
+        width: '100%', // 全屏
+        height: '100%',
+        margin: 0,
+
+        transition: 'fade', // none/fade/slide/convex/concave/zoom
+
+        // More info https://github.com/hakimel/reveal.js#dependencies
+        dependencies: [{
+            src: 'plugin/notes/notes.js',
+            async: true
+        }]
+    });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Exploded Layers</title>
+  <style>
+    html, body {
+      height: 100%;
+    }
+    body {
+      display: flex;
+      flex-flow: column;
+    }
+
+    .u-invisible {
+      visibility: hidden !important;
+    }
+
+    .demo {
+      margin: auto;
+      width: 40vw;
+      height: 20vh;
+
+      /*background-image: linear-gradient(100deg, skyblue 50%, transparent 0), radial-gradient(closest-side circle, yellow 99%, transparent 0), linear-gradient(purple, purple);
+      background-repeat: no-repeat;
+      background-size: 100% 100%, 50% 50%, 100% 100%;
+      background-position: 0 0, 50% 50%, 0 0;*/
+
+      border: 30px solid transparent;
+
+      background-image:
+        linear-gradient( white, white ),
+        linear-gradient( 270deg, #00D7B9 0, #B95DD7 50%, #FFB367 100% );
+
+      background-repeat: no-repeat;
+
+      background-origin:
+        padding-box,
+        border-box;
+
+    }
+  </style>
+  <link rel="stylesheet" href="layerstack.css">
+
+</head>
+<body>
+  <div class="demo"></div>
+
+  <script src="layerstack.js"></script>
+  <script>
+    var stack;
+    var demo = document.querySelector('.demo');
+
+    document.addEventListener('click', function() {
+      if (stack) {
+        stack.destroy();
+        return;
+      }
+
+      demo.classList.add('u-invisible');
+
+      stack = new LayerStack(document.querySelector('.demo'));
+      stack.on('afterdestroy', function(){
+        demo.classList.remove('u-invisible');
+
+        // Invalidate ref after DOM cleanup
+        stack = undefined;
+      });
+    })
+  </script>
+
+</body>
+</html>

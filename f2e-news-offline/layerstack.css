@@ -1,0 +1,59 @@
+/*
+  Styles for Layer Stack library
+*/
+
+.bg-stack-container {
+  position: absolute;
+  /*outline: 10px solid red;*/
+  perspective: 1000px;
+  transform: translateZ(0);
+  pointer-events: none; /* allow clicks to go though */
+}
+
+.bg-stack-container.animated .bg-stack{
+  transform: rotateX(55deg) rotateY(0) rotateZ(calc(var(--xoffset, 0) * 1deg)) scale(.65);
+}
+
+.bg-stack {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  perspective: 1000px;
+  transition: transform 2s ease-out;
+}
+
+.bg-stack__layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  transition: transform 2s ease-out, box-shadow 2s, opacity 2s;
+}
+
+.bg-stack-container.animated .bg-stack__layer{
+  opacity: 0.85;
+  box-shadow: 0 0 20px black;
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(1){
+
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(2){
+  transform: translateY(calc(var(--yoffset, 0) * -100px)) translateZ(calc(var(--yoffset, 0) * 100px));
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(3){
+  transform: translateY(calc(var(--yoffset, 0) * -200px)) translateZ(calc(var(--yoffset, 0) * 200px));
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(4){
+  transform: translateY(calc(var(--yoffset, 0) * -250px)) translateZ(calc(var(--yoffset, 0) * 250px));
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(5){
+  transform: translateY(calc(var(--yoffset, 0) * -300px)) translateZ(calc(var(--yoffset, 0) * 300px));
+}
+
+.bg-stack-container.animated .bg-stack__layer:nth-child(6){
+  transform: translateY(calc(var(--yoffset, 0) * -350px)) translateZ(calc(var(--yoffset, 0) * 350px));
+}

@@ -1,0 +1,811 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+@import url(../../lib/font/source-sans-pro/source-sans-pro.css);
+section.has-light-background,
+section.has-light-background h1,
+section.has-light-background h2,
+section.has-light-background h3,
+section.has-light-background h4,
+section.has-light-background h5,
+section.has-light-background h6 {
+    color: #222;
+}
+
+
+/*********************************************
+ * GLOBAL STYLES
+ *********************************************/
+
+body {
+    background: #222;
+    background-color: #222;
+}
+
+.reveal {
+    font-family: "Open Sans", "Source Sans Pro", Helvetica, sans-serif;
+    font-size: 38px;
+    font-weight: normal;
+    color: #fff;
+}
+
+::selection {
+    color: #fff;
+    background: #bee4fd;
+    text-shadow: none;
+}
+
+.reveal .slides > section,
+.reveal .slides > section > section {
+    line-height: 1.3;
+    font-weight: inherit;
+}
+
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+
+.reveal h1,
+.reveal h2,
+.reveal h3,
+.reveal h4,
+.reveal h5,
+.reveal h6 {
+    margin: 0 0 20px 0;
+    color: #fff;
+    font-family: "Open Sans", "Source Sans Pro", Helvetica, sans-serif;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: normal;
+    text-transform: Normal;
+    text-shadow: none;
+    word-wrap: break-word;
+}
+
+.reveal h1 {
+    font-size: 3.5em;
+}
+
+.reveal h2 {
+    font-size: 2.5em;
+}
+
+.reveal h3 {
+    font-size: 1.3em;
+}
+
+.reveal h4 {
+    font-size: 1em;
+}
+
+.reveal h1 {
+    text-shadow: none;
+}
+
+
+/*********************************************
+ * OTHER
+ *********************************************/
+
+.reveal p {
+    margin: 20px 0;
+    line-height: 1.3;
+}
+
+
+/* Ensure certain elements are never larger than the slide itself */
+
+.reveal img,
+.reveal video,
+.reveal iframe {
+    max-width: 95%;
+    max-height: 95%;
+}
+
+.reveal strong,
+.reveal b {
+    font-weight: bold;
+}
+
+.reveal em {
+    font-style: italic;
+}
+
+.reveal ol,
+.reveal dl,
+.reveal ul {
+    display: inline-block;
+    text-align: left;
+    margin: 0 0 0 1em;
+}
+
+.reveal ol {
+    list-style-type: decimal;
+}
+
+.reveal ul {
+    list-style-type: disc;
+}
+
+.reveal ul ul {
+    list-style-type: square;
+}
+
+.reveal ul ul ul {
+    list-style-type: circle;
+}
+
+.reveal ul ul,
+.reveal ul ol,
+.reveal ol ol,
+.reveal ol ul {
+    display: block;
+    margin-left: 40px;
+}
+
+.reveal dt {
+    font-weight: bold;
+}
+
+.reveal dd {
+    margin-left: 40px;
+}
+
+.reveal q,
+.reveal blockquote {
+    quotes: none;
+}
+
+.reveal blockquote {
+    display: block;
+    position: relative;
+    width: 70%;
+    margin: 20px auto;
+    padding: 5px;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.05);
+    box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.2);
+}
+
+.reveal blockquote p:first-child,
+.reveal blockquote p:last-child {
+    display: inline-block;
+}
+
+.reveal q {
+    font-style: italic;
+}
+
+.reveal pre {
+    display: block;
+    position: relative;
+    width: 90%;
+    margin: 20px auto;
+    text-align: left;
+    font-size: 0.55em;
+    font-family: monospace;
+    line-height: 1.2em;
+    word-wrap: break-word;
+}
+
+.reveal code {
+    font-family: monospace;
+}
+
+.reveal pre code {
+    display: block;
+    padding: 5px;
+    overflow: auto;
+    max-height: 400px;
+    word-wrap: normal;
+}
+
+.reveal table {
+    margin: auto;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.reveal table th {
+    font-weight: bold;
+}
+
+.reveal table th,
+.reveal table td {
+    text-align: left;
+    padding: 0.2em 0.5em 0.2em 0.5em;
+    border-bottom: 1px solid;
+}
+
+.reveal table th[align="center"],
+.reveal table td[align="center"] {
+    text-align: center;
+}
+
+.reveal table th[align="right"],
+.reveal table td[align="right"] {
+    text-align: right;
+}
+
+.reveal table tbody tr:last-child th,
+.reveal table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.reveal sup {
+    vertical-align: super;
+}
+
+.reveal sub {
+    vertical-align: sub;
+}
+
+.reveal small {
+    display: inline-block;
+    font-size: 0.6em;
+    line-height: 1.2em;
+    vertical-align: top;
+}
+
+.reveal small * {
+    vertical-align: top;
+}
+
+
+/*********************************************
+ * LINKS
+ *********************************************/
+
+.reveal a {
+    color: #42affa;
+    text-decoration: none;
+    -webkit-transition: color .15s ease;
+    -moz-transition: color .15s ease;
+    transition: color .15s ease;
+}
+
+.reveal a:hover {
+    color: #8dcffc;
+    text-shadow: none;
+    border: none;
+}
+
+.reveal .roll span:after {
+    color: #fff;
+    background: #068de9;
+}
+
+
+/*********************************************
+ * IMAGES
+ *********************************************/
+
+.reveal section img {
+    margin: 15px 0px;
+    background: rgba(255, 255, 255, 0.12);
+    border: 4px solid #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+}
+
+.reveal section img.plain {
+    border: 0;
+    box-shadow: none;
+}
+
+.reveal a img {
+    -webkit-transition: all .15s linear;
+    -moz-transition: all .15s linear;
+    transition: all .15s linear;
+}
+
+.reveal a:hover img {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: #42affa;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.55);
+}
+
+
+/*********************************************
+ * NAVIGATION CONTROLS
+ *********************************************/
+
+.reveal .controls .navigate-left,
+.reveal .controls .navigate-left.enabled {
+    border-right-color: #42affa;
+}
+
+.reveal .controls .navigate-right,
+.reveal .controls .navigate-right.enabled {
+    border-left-color: #42affa;
+}
+
+.reveal .controls .navigate-up,
+.reveal .controls .navigate-up.enabled {
+    border-bottom-color: #42affa;
+}
+
+.reveal .controls .navigate-down,
+.reveal .controls .navigate-down.enabled {
+    border-top-color: #42affa;
+}
+
+.reveal .controls .navigate-left.enabled:hover {
+    border-right-color: #8dcffc;
+}
+
+.reveal .controls .navigate-right.enabled:hover {
+    border-left-color: #8dcffc;
+}
+
+.reveal .controls .navigate-up.enabled:hover {
+    border-bottom-color: #8dcffc;
+}
+
+.reveal .controls .navigate-down.enabled:hover {
+    border-top-color: #8dcffc;
+}
+
+
+/*********************************************
+ * PROGRESS BAR
+ *********************************************/
+
+.reveal .progress {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.reveal .progress span {
+    background: #42affa;
+    -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+    -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+    transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
+}
+
+.flex-layout--row {
+    display: flex;
+    height: 100%;
+}
+
+.flex-layout--row .cell {
+    width: auto;
+    flex: 1 0 auto;
+}
+
+.flex-layout--row .cell--half {
+    max-width: 50%;
+}
+
+.flex-layout--row .cell--third {
+    max-width: 33%;
+}
+
+.flex-layout--row .cell--quarter {
+    max-width: 25%;
+}
+
+.flex-layout--row .cell--fifth {
+    max-width: 20%;
+}
+
+.flex-layout--row .cell--tenth {
+    max-width: 10%;
+}
+
+.flex-layout--column {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+}
+
+.flex-layout--center {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.flex-layout--column .cell {
+    height: auto;
+    flex: 1 0 auto;
+    overflow: hidden;
+    resize: vertical;
+}
+
+.flex-layout--column .cell--half {
+    max-height: 50%;
+}
+
+.flex-layout--column .cell--third {
+    max-height: 33%;
+}
+
+.flex-layout--column .cell--quarter {
+    max-height: 25%;
+}
+
+.flex-layout--column .cell--fifth {
+    max-height: 20%;
+}
+
+.flex-layout--column .cell--tenth {
+    max-height: 10%;
+}
+
+.cell--vpack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.u-center {
+    margin: auto;
+}
+
+.u-bottom-left {
+    margin: auto auto 2em 2em !important;
+}
+
+.u-bottom-right {
+    margin: auto 2em 2em auto !important;
+}
+
+.u-top-right {
+    margin: 2em 2em auto auto !important;
+}
+
+.u-uppercase {
+    text-transform: uppercase !important;
+}
+
+.u-opacity1 {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.u-opacity0 {
+    opacity: 0 !important;
+}
+
+.u-invisible {
+    visibility: hidden !important;
+}
+
+.u-width-half {
+    width: 50% !important;
+}
+
+.u-width-threequarters {
+    width: 75% !important;
+}
+
+.u-align-right {
+    text-align: right !important;
+}
+
+.u-align-left {
+    text-align: left !important;
+}
+
+.u-twitter {
+    position: relative;
+}
+
+.u-twitter::before {
+    position: absolute;
+    left: -1.5em;
+    content: ' ';
+    background-image: url(../../resources/twitter.svg);
+    background-repeat: no-repeat;
+    height: 1.5em;
+    width: 1.5em;
+    display: block;
+    background-size: contain;
+}
+
+.reveal img.screenshot {
+    border: 0;
+    box-shadow: none;
+}
+
+.reveal a img,
+.reveal a:hover img {
+    background: none;
+    border: none;
+    box-shadow: none;
+}
+
+.reveal img.screenshot--share {
+    max-width: 80%;
+    max-height: 80%;
+    margin-bottom: 0;
+}
+
+.reveal .fragment--trigger-highlight.visible .highlight {
+    transition: all .5s;
+    background-color: #f7ce31;
+    color: black;
+}
+
+.reveal .fragment--trigger-highlight.visible:not(.highlight) {
+    transition: opacity .5s;
+    opacity: 0.3;
+}
+
+.reveal ul.list {
+    list-style: none;
+    font-size: 1.5em;
+    margin-top: 1em;
+    font-weight: 600;
+    margin-left: 0;
+}
+
+.reveal ul.list.list--2col {
+    column-count: 2;
+    column-gap: 1.5em;
+}
+
+.reveal ul.list.list--code {
+    font-family: "Source Code Pro", monospace, sans-serif;
+}
+
+.reveal ul.list li {
+    padding: 0.1em .3em;
+}
+
+.reveal ul.list--credits {
+    font-size: 0.75em;
+}
+
+.reveal cite {
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+.reveal .demo-container--skeleton {
+    background: white;
+    display: flex;
+}
+
+.reveal .demo.demo--skeleton {
+    margin: auto;
+    width: 500px;
+    height: 200px;
+    overflow: hidden;
+    resize: vertical;
+}
+
+.reveal .borders-title {
+    font-size: 4em;
+    text-transform: uppercase;
+    letter-spacing: -3px;
+    padding: .2em .4em;
+    border: 0.2em solid black;
+    font-weight: 700;
+    background-image: linear-gradient(white, white), linear-gradient(120deg, #00D7B9, #B95DD7 50%, #FFB367 100%);
+    background-repeat: no-repeat;
+    background-origin: padding-box, border-box;
+    background-size: 100% 100%, 100% 100%;
+}
+
+.reveal .borders-title:hover {
+    animation: borders-anim1 .6s ease-in forwards, borders-anim2 .6s 1s ease-out forwards, borders-anim3 .6s 2.2s ease-out forwards, borders-anim4 .6s 3.4s ease-out forwards, borders-anim5 .6s 4.5s ease-out forwards, borders-anim6 .6s 5.5s ease-out forwards, borders-anim7 .6s 6.4s ease-out forwards, borders-anim8 .6s 7.2s ease-out forwards;
+}
+
+.reveal .demo-container--border {
+    background: white;
+    display: flex;
+}
+
+.reveal .demo--border {
+    margin: auto;
+    color: #000;
+    letter-spacing: -2px;
+    font-family: "Open Sans", "Source Sans Pro", Helvetica, sans-serif;
+    font-size: 3.5em;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: .2em .4em;
+}
+
+.demo--center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.demo--center h1 {
+  font-size: 2.3em;
+}
+
+
+.reveal .demo-container--tools {
+    background: white;
+    display: flex;
+}
+
+.reveal .demo--input {
+    margin: auto;
+    width: 500px;
+    outline: none;
+}
+
+.reveal .demo--wizzard {
+    margin: auto;
+    outline: none;
+}
+
+.reveal .demo--wizzard::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.reveal .talk--title {
+    display: flex;
+    flex-flow: column;
+    font-size: 4em;
+    line-height: 0.2;
+    font-weight: normal;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.reveal .talk--title img {
+  border: none;
+  margin: 0;
+  margin-right: 20px;
+}
+
+.reveal .talk--title span {
+    flex: 0;
+    align-self: center;
+    display: flex;
+    align-items: center;
+}
+
+.reveal .part3 {
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0.6);
+    margin-top: 1em;
+}
+
+.reveal .part2 {
+    font-weight: 300;
+    font-size: 0.6em;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.reveal .talk--title .part1 {
+    padding: 1.2em .6em;
+    color: white;
+    background-image: linear-gradient(177deg, transparent 25%, #2196F3 25.5%, #3F51B5 75%, transparent 75.5%), linear-gradient(177deg, transparent 25%, #2196F3 25.5%, #0f619e 75%, transparent 75.5%), linear-gradient(-179deg, transparent 25%, #2196F3 25.5%, #274b82 75%, transparent 75.5%);
+    background-size: auto 94%, auto 95%;
+    background-position: center center, right -20px bottom -20px, top -10px left;
+    background-repeat: no-repeat;
+}
+
+@keyframes borders-anim1 {
+    to {
+        border-width: 0;
+    }
+}
+
+@keyframes borders-anim2 {
+    from {
+        border-color: transparent;
+    }
+    to {
+        border-width: .2em;
+        border-color: transparent;
+    }
+}
+
+@keyframes borders-anim3 {
+    to {
+        background-size: 100% 100%, 50% 50%;
+    }
+}
+
+@keyframes borders-anim4 {
+    to {
+        background-position: 100% 100%, 100% 0;
+    }
+}
+
+@keyframes borders-anim5 {
+    to {
+        background-position: 100% 100%, 50% 100%;
+        background-size: 100% 100%, 30% 100%;
+    }
+}
+
+@keyframes borders-anim6 {
+    to {
+        background-position: 100% 100%, 50% 100%;
+        background-size: 100% 100%, 100% 100%;
+    }
+}
+
+@keyframes borders-anim7 {
+    to {
+        border-width: 0;
+    }
+}
+
+@keyframes borders-anim8 {
+    to {
+        border-width: .2em;
+        border-color: black;
+    }
+}
+
+html.bg-gradient-intro .slide-background.present {
+   background: conic-gradient(#f06, gold);
+}
+
+html.bg-bio .slide-background.present {
+    background-image: url(../../resources/adobelogo.svg), linear-gradient(110deg, rebeccapurple 40%, #402060 0);
+    background-size: 2em auto, 100% 100%;
+    transition: none;
+    background-position: top right 2em, center center;
+    background-repeat: no-repeat;
+}
+
+html.bg-purple-slant .slide-background.present {
+    background-image: linear-gradient(110deg, rebeccapurple 40%, #402060 0);
+    background-size: 100% 100%;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+html.bg-skeleton .slide-background.present {
+    background-image: url(../../resources/skeleton.svg);
+    background-size: auto 6em;
+    background-repeat: repeat;
+}
+
+html.bg-title .slide-background.present {
+    background-color: #117dbb;
+}
+
+html.bg-key .slide-background.present {
+    background-color: #08479b;
+    background-image: url(../../resources/key.svg), linear-gradient(120deg, transparent 50%, #073c83 0);
+    background-size: auto 18em, 100% 100%;
+    background-position: left bottom -2em, center center;
+    background-repeat: no-repeat;
+    transition: none;
+}
+
+.reveal .avatar {
+    border: none;
+    box-shadow: none;
+    width: 70% !important;
+    border-radius: 50%;
+    height: auto;
+    margin: auto;
+}
+
+@supports (-webkit-clip-path: polygon(nonzero, 0% 36.1%, 37.6% 0.25%, 86.1% 13.65%, 99.75% 63.65%, 63.1% 100.25%, 13% 84.7%)) or (clip-path: polygon(nonzero, 0% 36.1%, 37.6% 0.25%, 86.1% 13.65%, 99.75% 63.65%, 63.1% 100.25%, 13% 84.7%)) {
+    .reveal .avatar {
+        -webkit-clip-path: polygon(nonzero, 0% 36.1%, 37.6% 0.25%, 86.1% 13.65%, 99.75% 63.65%, 63.1% 100.25%, 13% 84.7%);
+        clip-path: polygon(nonzero, 0% 36.1%, 37.6% 0.25%, 86.1% 13.65%, 99.75% 63.65%, 63.1% 100.25%, 13% 84.7%);
+        border-radius: 0;
+    }
+}
+
+.demo-contents {
+    align-items: center;
+    justify-content: center;
+}
+
+.demo-contents .demo {
+  white-space: nowrap;
+  display: contents !important;
+}

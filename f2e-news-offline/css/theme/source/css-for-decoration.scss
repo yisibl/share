@@ -1,0 +1,559 @@
+/**
+ * Black theme for reveal.js. This is the opposite of the 'white' theme.
+ *
+ * By Hakim El Hattab, http://hakim.se
+ */
+
+
+// Default mixins and settings -----------------
+@import "../template/mixins";
+@import "../template/settings";
+// ---------------------------------------------
+
+
+// Include theme-specific fonts
+@import url(../../lib/font/source-sans-pro/source-sans-pro.css);
+
+
+// Override theme settings (see ../template/settings.scss)
+$backgroundColor: #222;
+
+$mainColor: #fff;
+$headingColor: #fff;
+
+$mainFontSize: 38px;
+$mainFont: 'Open Sans', 'Source Sans Pro', Helvetica, sans-serif;
+$codeFont: 'Source Code Pro', monospace, sans-serif;
+$headingFont: 'Open Sans', 'Source Sans Pro', Helvetica, sans-serif;
+$headingTextShadow: none;
+$headingLetterSpacing: normal;
+$headingTextTransform: Normal;
+$headingFontWeight: 600;
+$linkColor: #42affa;
+$linkColorHover: lighten( $linkColor, 15% );
+$selectionBackgroundColor: lighten( $linkColor, 25% );
+
+$titleSize: 4em;
+$heading1Size: 3.5em;
+$heading2Size: 2.5em;
+$heading3Size: 1.3em;
+$heading4Size: 1.0em;
+
+section.has-light-background {
+	&, h1, h2, h3, h4, h5, h6 {
+		color: #222;
+	}
+}
+
+
+// Theme template ------------------------------
+@import "../template/theme";
+// ---------------------------------------------
+
+
+.flex-layout--row {
+	display: flex;
+	height: 100%;
+
+	.cell {
+		width: auto;
+		flex: 1 0 auto;
+	}
+
+	.cell--half {
+		max-width: 50%;
+	}
+
+	.cell--third {
+		max-width: 33%;
+	}
+
+	.cell--quarter {
+		max-width: 25%;
+	}
+
+	.cell--fifth {
+		max-width: 20%;
+	}
+
+	.cell--tenth {
+		max-width: 10%;
+	}
+
+}
+
+.flex-layout--column {
+	display: flex;
+	height: 100%;
+	width: 100%;
+	flex-flow: column nowrap;
+	justify-content: flex-end;
+
+	.cell {
+		height: auto;
+		flex: 1 0 auto;
+		overflow: hidden;
+		resize: vertical;
+	}
+
+	.cell--half {
+		max-height: 50%;
+	}
+
+	.cell--third {
+		max-height: 33%;
+	}
+
+	.cell--quarter {
+		max-height: 25%;
+	}
+
+	.cell--fifth {
+		max-height: 20%;
+	}
+
+	.cell--tenth {
+		max-height: 10%;
+	}
+}
+
+.cell--vpack {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+
+// Utility classes
+// ------------------------------------------
+.u-center{
+	margin: auto !important;
+}
+
+.u-bottom-left {
+	margin: auto auto 2em 2em !important;
+}
+
+.u-bottom-right {
+	margin: auto 2em 2em auto !important;
+}
+
+.u-top-right {
+	margin: 2em 2em auto auto !important;
+}
+
+.u-uppercase {
+	text-transform: uppercase !important;
+}
+
+.u-opacity1 {
+	opacity: 1 !important;
+	visibility: visible !important;
+}
+
+.u-opacity0 {
+	opacity: 0 !important;
+}
+
+.u-invisible {
+	visibility: hidden !important;
+}
+
+.u-width-half {
+	width: 50% !important;
+}
+
+.u-width-threequarters {
+	width: 75% !important;
+}
+
+.u-align-right {
+ text-align: right !important;
+}
+
+.u-align-left {
+ text-align: left !important;
+}
+
+.u-twitter {
+	position: relative;
+}
+.u-twitter::before {
+	position: absolute;
+	left: -1.5em;
+	content: ' ';
+	background-image: url(../../resources/twitter.svg);
+	background-repeat: no-repeat;
+	height: 1.5em;
+	width: 1.5em;
+	display: block;
+	background-size: contain;
+}
+
+.reveal {
+	img.screenshot {
+		border: 0;
+		box-shadow: none;
+	}
+
+	a img,
+	a:hover img {
+		background: none;
+    border: none;
+		box-shadow: none;
+	}
+
+	img.screenshot--share{
+		max-width: 80%;
+		max-height: 80%;
+		margin-bottom: 0;
+	}
+
+	// Custom fragment: highlight children that have "highlight" class, fade others
+	// ------------------------------------------
+	.fragment--trigger-highlight.visible {
+		.highlight {
+			transition: all .5s;
+			background-color: #f7ce31;
+			color: black;
+		}
+
+		:not(.highlight) {
+			transition: opacity .5s;
+			opacity: 0.3;
+		}
+	}
+
+	// Lists (1 col, 2 col, code style)
+	// ------------------------------------------
+	ul.list {
+		list-style: none;
+		font-size: 1.5em;
+		margin-top: 1em;
+		font-weight: 600;
+		margin-left: 0;
+
+		&.list--2col{
+			column-count: 2;
+			column-gap: 1.5em;
+		}
+
+		&.list--code {
+			font-family: $codeFont;
+		}
+
+		&.list--bio {
+
+		}
+
+		li {
+			padding: 0.1em .3em;
+		}
+	}
+
+	ul.list--credits {
+		font-size: 0.75em;
+	}
+
+
+	cite {
+		font-size: 1.2rem;
+		opacity: 0.5;
+	}
+
+	// "Skeleton screens" section
+	// ------------------------------------------
+	.demo-container--skeleton {
+		background: white;
+		display: flex;
+	}
+
+	.demo.demo--skeleton{
+		margin: auto;
+		width: 500px;
+		height: 200px;
+		// /*outline: 1px solid red;*/
+		overflow: hidden;
+		resize: vertical;
+	}
+
+	// "Better borders" section
+	// ------------------------------------------
+	.borders-title {
+		font-size: 4em;
+		text-transform: uppercase;
+		letter-spacing: -3px;
+		padding: .2em .4em;
+		border: .2em solid rgba(0, 0, 0, 1);
+		font-weight: 700;
+
+		background-image:
+			linear-gradient(white, white),
+			linear-gradient(120deg, #00D7B9, #B95DD7 50%, #FFB367 100%);
+
+		background-repeat: no-repeat;
+		background-origin: padding-box, border-box;
+
+		background-size:
+			100% 100%,
+			100% 100%;
+	}
+
+	.borders-title:hover {
+		// TODO: simplify animations: one for border grow/shrink + sudden color change
+		animation:
+			borders-anim1 .6s ease-in forwards,
+			borders-anim2 .6s 1s ease-out forwards,
+			borders-anim3 .6s 2.2s ease-out forwards,
+			borders-anim4 .6s 3.4s ease-out forwards,
+			borders-anim5 .6s 4.5s ease-out forwards,
+			borders-anim6 .6s 5.5s ease-out forwards,
+			borders-anim7 .6s 6.4s ease-out forwards,
+			borders-anim8 .6s 7.2s ease-out forwards;
+	}
+
+	.demo-container--border {
+		background: white;
+		display: flex;
+	}
+
+	.demo--border {
+		margin: auto;
+		color: #000;
+		letter-spacing: -2px;
+		font-family: $headingFont;
+		font-size: $heading1Size;
+		text-transform: uppercase;
+		font-weight: 700;
+		padding: .2em .4em;
+	}
+
+	// "Tool UI" section
+	// ------------------------------------------
+	.demo-container--tools {
+		background: white;
+		display: flex;
+	}
+
+	.demo--input {
+		margin: auto;
+		width: 500px;
+		outline: none;
+	}
+
+	.demo--wizzard {
+		margin: auto;
+		outline: none;
+
+		&::-webkit-slider-thumb {
+			-webkit-appearance: none;
+			appearance: none;
+		}
+	}
+
+	.talk--title {
+		display: flex;
+		flex-flow: column;
+		font-size: $titleSize;
+		line-height: 0.2;
+		font-weight: 900;
+
+		span {
+			flex: 0;
+			align-self: center;
+		}
+
+		.part2 {
+			font-weight: 300;
+			font-style: italic;
+			font-size: 0.8em;
+			color: rgba(255, 255, 255, 0.7);
+		}
+
+		$contrast: #f7ce31;
+		$contrast2: darken(rebeccapurple, 10%);
+		$contrast3: lighten(rebeccapurple, 15%);
+		$contrast3: darken(rebeccapurple, 25%);
+
+		.part3,
+		.part1 {
+			padding: 1.2em .6em;
+			color: black;
+			background-image:
+				linear-gradient(177deg, transparent 25%, $contrast 25.5%, $contrast 75%, transparent 75.5%),
+				linear-gradient(177deg, transparent 25%, $contrast2 25.5%, $contrast2 75%, transparent 75.5%),
+				linear-gradient(-179deg, transparent 25%, $contrast3 25.5%, $contrast3 75%, transparent 75.5%);
+			background-size: auto 94%, auto 95%;
+			background-position: center center, right -20px bottom -20px, top -10px left;
+			background-repeat: no-repeat;
+		}
+	}
+
+}
+
+@keyframes borders-anim1 {
+	to {
+		border-width: 0;
+	}
+}
+
+@keyframes borders-anim2 {
+	from {
+		border-color: rgba(0,0,0,0);
+	}
+	to {
+		border-width: .2em;
+		border-color: rgba(0,0,0,0);
+	}
+}
+
+@keyframes borders-anim3 {
+	to {
+		background-size:
+			100% 100%,
+			50% 50%;
+	}
+}
+
+@keyframes borders-anim4 {
+	to {
+		background-position:
+			100% 100%,
+			100% 0;
+	}
+}
+
+@keyframes borders-anim5 {
+	to {
+		background-position:
+			100% 100%,
+			50% 100%;
+
+		background-size:
+			100% 100%,
+			30% 100%;
+	}
+}
+
+@keyframes borders-anim6 {
+	to {
+		background-position:
+			100% 100%,
+			50% 100%;
+
+		background-size:
+			100% 100%,
+			100% 100%;
+	}
+}
+
+@keyframes borders-anim7 {
+	to {
+		border-width: 0;
+	}
+}
+
+@keyframes borders-anim8 {
+	to {
+		border-width: .2em;
+		border-color: rgba(0,0,0,1);
+	}
+}
+
+
+// Custom backgrounds set with `data-state` in HTML
+// ------------------------------------------
+
+html.bg-gradient-intro {
+	.slide-background.present {
+		background: linear-gradient(340deg, #00D7B9, #B95DD7 40%, #FFB367 90%);
+	}
+}
+
+html.bg-bio {
+	.slide-background.present {
+		background-image:
+			url(../../resources/adobelogo.svg),
+			linear-gradient( 110deg, rebeccapurple 40%, darken(rebeccapurple, 15%) 0);
+
+		background-size:
+			2em auto,
+			100% 100%;
+
+		// stop logo flying around
+		transition: none;
+
+		background-position:
+			top right 2em,
+			center center;
+
+		background-repeat: no-repeat;
+	}
+}
+
+html.bg-purple-slant {
+	.slide-background.present {
+		background-image:
+			linear-gradient( 110deg, rebeccapurple 40%, darken(rebeccapurple, 15%) 0);
+
+		background-size:
+			100% 100%;
+
+		background-position:
+			center center;
+
+		background-repeat: no-repeat;
+	}
+}
+
+html.bg-skeleton {
+	.slide-background.present {
+		background-image: url(../../resources/skeleton.svg);
+		background-size: auto 6em;
+		background-repeat: repeat;
+	}
+}
+
+html.bg-title {
+	.slide-background.present {
+		background-color: rebeccapurple;
+		// background-image: linear-gradient( 110deg, rebeccapurple 50%, darken(rebeccapurple, 15%) 0);
+	}
+}
+
+html.bg-key {
+	.slide-background.present {
+		background-color: #08479b;
+		background-image:
+			url(../../resources/key.svg),
+			linear-gradient(120deg, transparent 50%, darken(#08479b, 5%) 0);
+		background-size:
+			auto 18em,
+			100% 100%;
+		background-position:
+			left bottom -2em,
+			center center;
+		background-repeat: no-repeat;
+		transition:  none;
+	}
+}
+
+
+.reveal .avatar {
+	border: none;
+	box-shadow: none;
+	width: 70% !important;
+	border-radius: 50%;
+	height: auto;
+	margin: auto;
+}
+
+$clipPath: polygon(nonzero, 0% 36.1%, 37.6% 0.25%, 86.1% 13.65%, 99.75% 63.65%, 63.1% 100.25%, 13% 84.7%);
+
+@supports ((-webkit-clip-path: $clipPath) or (clip-path: $clipPath)) {
+	.reveal .avatar {
+		-webkit-clip-path: $clipPath;
+		clip-path: $clipPath;
+		border-radius: 0;
+	}
+}
